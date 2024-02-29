@@ -10,8 +10,8 @@ In the preceding diagram, I can access the AWS Cloud through an SSH connection. 
  I log in to an existing EC2 instance
  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f4b677f8-76c3-427e-aca3-a602fdccd025)
  
-I am using window.
-Step1: Download the ppk and save the labsuser.ppk file.
+-I am using window.
+* **Step1:** Download the ppk and save the **labsuser.ppk** file.
 Step 2: Copy and paste the PublicIP into a text editor
 Step 3: Download PuTTY to use an SSH utility to connect to the EC2 instance
 Step 4: Open putty.exe.
