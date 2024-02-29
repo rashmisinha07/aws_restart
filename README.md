@@ -7,8 +7,13 @@ This is the diagram:
 
 In the preceding diagram, I can access the AWS Cloud through an SSH connection. Within the AWS Cloud, a virtual private cloud (VPC) with a Red Hat EC2 instance is configured with the AWS CLI. IAM is configured, and I used the AWS CLI to interact with IAM.
 #Connect to the Red Hat EC2 instance by using SSH
- I log in to an existing EC2 instance
+ I log in to an existing EC2 instance.
+
+ 
  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f4b677f8-76c3-427e-aca3-a602fdccd025)
+
+ ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/80c5c88d-6846-4f19-8e33-f7f3b7ebb03b)
+
  
 I am using window.
 * **Step 1:** Download the ppk and save the **labsuser.ppk** file.
@@ -18,7 +23,7 @@ I am using window.
 * **Step 5:** Configure the PuTTY timeout to keep the PuTTY session open for a longer period of time:
                 Choose Connection.
                 For Seconds between keepalives, enter `30`
-Step 6: Configure the PuTTY session:
+* **Step 6:** Configure the PuTTY session:
               Choose Session.
               For the Host Name (or IP address), enter the PublicIP address that I copied from the previous steps.
                In PuTTY in the Connection list, choose SSH 
@@ -26,6 +31,19 @@ Step 6: Configure the PuTTY session:
                 Choose Browse.
                 Browse to and select the labuser.ppk file that I downloaded.
                 To choose the file, choose Open.
-Step 7: In the PuTTY Security Alert window, choose Accept to trust and connect to the host.
-Step 8: When prompted with login as, enter ec2-user and press Enter.
+* **Step 7:** In the PuTTY Security Alert window, choose Accept to trust and connect to the host.
+* **Step 8:** When prompted with login as, enter `ec2-user` and press Enter.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7fc34eed-2a3b-4847-b500-85136b327173)
+
+Now I connected to EC2 instance.
+
+# Install the AWS CLI on a Red Hat Linux instance
+I followed these steps from the terminal window to install the AWS CLI on a Red Hat Linux instance.
+
+* **Step 9:** To write the downloaded file to the current directory, run the following curl command with the -o option:
+  
+                         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  The following is an example of the output:
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d092ecc6-c82b-4e37-a4ac-2abf2f2f6b2d)
+
+  * **Step 10:** To unzip the installer, run the following unzip command with the -u option.
