@@ -46,4 +46,43 @@ I followed these steps from the terminal window to install the AWS CLI on a Red 
   The following is an example of the output:
   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d092ecc6-c82b-4e37-a4ac-2abf2f2f6b2d)
 
-  * **Step 10:** To unzip the installer, run the following unzip command with the -u option.
+* **Step 10:** To unzip the installer, run the following unzip command with the -u option.
+
+               unzip -u awscliv2.zip
+  The following is an example of the output:
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/cd040951-0df0-4505-9ce9-52d46df1c1ad)
+
+* **Step 11:** To run the install program, run the following command. This sudo command grants write permissions to the directory.
+
+               sudo ./aws/install
+   The following is an example of the output:
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ae3f23c6-a4a4-4913-a4d3-d4bd4ffdb305)
+
+ * **Step 12:** To confirm the installation, run the following command:
+
+          aws --version
+   The following is an example of the output:
+   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f8c5ecfc-36d6-4c62-8b20-5131e92598ed)
+
+* **Step 12:** To verify that the AWS CLI is now working, run the following aws help command. The help command displays the information for the AWS CLI.
+
+         aws help
+  
+The following is an example of the output:
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6a5c923e-a35e-4b4a-a892-10604556ca00)
+
+At the : prompt, enter q to exit.
+# Observe IAM configuration details in the AWS Management Console
+
+In the AWS Management Console, in the Search box, enter IAM and choose **IAM**. This option takes me to the IAM console page. In the navigation pane, choose **Users**, and then choose **awsstudent**. 
+
+
+
+   
+
+  
+
+  
+  
+
+  
