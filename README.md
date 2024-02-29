@@ -121,7 +121,7 @@ I observed the IAM configuration details for the EC2 instance using the AWS CLI.
 
     ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d9e7c31e-ba2e-48e4-823a-61df70f52f90)
 
-    Now I can able to see the save files used this command:
+    Now I am able to see the save files used this command:
 
                cat lab_policy.json
     ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d8acc706-008f-4f4f-b819-92675cf83fdd)
