@@ -1,1 +1,7 @@
+## Automating macOS Setup with Ansible Playbook.
 
+```
+   git --version
+   python3 --version
+   make --version
+   ```
