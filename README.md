@@ -74,7 +74,71 @@ The following is an example of the output:
 At the : prompt, enter q to exit.
 # Observe IAM configuration details in the AWS Management Console
 
-In the AWS Management Console, in the Search box, enter IAM and choose **IAM**. This option takes me to the IAM console page. In the navigation pane, choose **Users**, and then choose **awsstudent**. 
+* **Step 13:** In the AWS Management Console, in the Search box, enter IAM and choose **IAM**. This option takes me to the IAM console page. In the navigation pane, choose **Users**, and then choose **awsstudent**. 
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/577c70b6-6ea3-4c11-9253-9d6d966500cd)
+
+* **Step 14:** In the **Permissions** tab. Next to **lab_policy**, choose the arrow icon, and then choose the {} **JSON** button
+  
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/42d23e1e-b131-4aa9-aadb-9e6433ad952f)
+
+* **Step 15:** Choose the **Security credentials** tab. In the **Access keys** section, locate the awsstudent user's access key ID.
+  
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/9c5c4818-7253-4bbb-ae77-30c1ceb66cbf)
+
+# Configure the AWS CLI to connect to your AWS Account
+* **Step 16:** In the SSH session terminal window, run the configure command for the AWS CLI:
+
+         aws configure
+
+ * **Step 17:** At the prompt, configure the following:
+ *	**AWS Access Key ID:** Copy and paste the AccessKey value into the terminal window.
+ *	**AWS Secret Access Key:** Copy and paste the SecretKey value into the terminal window.
+ *	**Default region name:** Enter us-west-2
+ *	**Default output format:** Enter json
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/cb21d3dc-8a90-4cac-9323-5de8c7c7026e)
+
+# Observe IAM configuration details by using the AWS CLI
+I observed the IAM configuration details for the EC2 instance using the AWS CLI.
+
+* **Step 18:** In the terminal window, test the IAM configuration by running the following command:
+
+                  aws iam list-users
+
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c1447f90-a228-4041-b110-9c1a066ff7c8)
+
+  # Challenge
+
+  Use the AWS CLI Command Reference documentation and AWS CLI to download the lab_policy document in a JSON-formatted IAM policy document. This is the same document that is in the AWS Management Console.
+
+ * **Step 19:** In the IAM AWS CLI Command Reference(https://docs.aws.amazon.com/cli/latest/reference/iam/), the following command lists IAM policies and filters customer managed policies:
+
+             aws iam list-policies --scope Local
+   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/2e5f7d01-4995-4ab8-a3e2-81aa2ca8aa42)
+
+  * **Step 19:** use the version number Arn information and DefaultVersionId found inside the lab_policy document to retrieve the JSON IAM policy. Use the > command to save the file.
+
+               aws iam get-policy-version --policy-arn arn:aws:iam::038946776283:policy/lab_policy --version-id v1 > lab_policy.json
+
+    ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d9e7c31e-ba2e-48e4-823a-61df70f52f90)
+
+    Now I can able to see the save files used this command:
+
+               cat lab_policy.json
+    ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d8acc706-008f-4f4f-b819-92675cf83fdd)
+
+    
+
+
+    
+
+
+
+
+  
+
+
+
+
 
 
 
