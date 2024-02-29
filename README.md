@@ -9,6 +9,7 @@ In the preceding diagram, I can access the AWS Cloud through an SSH connection. 
 #Connect to the Red Hat EC2 instance by using SSH
  I log in to an existing EC2 instance
  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f4b677f8-76c3-427e-aca3-a602fdccd025)
+ 
 I am using window.
 Step1: Download the ppk and save the labsuser.ppk file.
 Step 2: Copy and paste the PublicIP into a text editor
