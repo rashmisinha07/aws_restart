@@ -6,11 +6,14 @@ This is the diagram:
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7b66c19a-5e14-4068-a441-d3ae54a5e94a)
 
 In the preceding diagram, I can access the AWS Cloud through an SSH connection. Within the AWS Cloud, a virtual private cloud (VPC) with a Red Hat EC2 instance is configured with the AWS CLI. IAM is configured, and I used the AWS CLI to interact with IAM.
-#Connect to the Red Hat EC2 instance by using SSH
- I log in to an existing EC2 instance.
+
+# Connect to the Red Hat EC2 instance by using SSH
+
+ I loged in to an existing EC2 instance.
 
  
  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f4b677f8-76c3-427e-aca3-a602fdccd025)
+
 
  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/80c5c88d-6846-4f19-8e33-f7f3b7ebb03b)
 
