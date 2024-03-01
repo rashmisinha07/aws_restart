@@ -94,10 +94,10 @@ At the : prompt, enter q to exit.
          aws configure
 
  * **Step 17:** At the prompt, configure the following:
- *	**AWS Access Key ID:** Copy and paste the AccessKey value into the terminal window.
- *	**AWS Secret Access Key:** Copy and paste the SecretKey value into the terminal window.
- *	**Default region name:** Enter us-west-2
- *	**Default output format:** Enter json
+     *	**AWS Access Key ID:** Copy and paste the AccessKey value into the terminal window.
+     *	**AWS Secret Access Key:** Copy and paste the SecretKey value into the terminal window.
+     *	**Default region name:** Enter: us-west-2
+     *	**Default output format:** Enter: json
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/cb21d3dc-8a90-4cac-9323-5de8c7c7026e)
 
 # Observe IAM configuration details by using the AWS CLI
