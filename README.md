@@ -15,9 +15,6 @@ In the preceding diagram, I can access the AWS Cloud through an SSH connection. 
  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f4b677f8-76c3-427e-aca3-a602fdccd025)
 
 
- ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/80c5c88d-6846-4f19-8e33-f7f3b7ebb03b)
-
- 
 I am using window.
 * **Step 1:** Download the ppk and save the **labsuser.ppk** file.
 * **Step 2:** Copy and paste the PublicIP into a text editor
