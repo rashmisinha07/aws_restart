@@ -125,3 +125,12 @@ I observed the IAM configuration details for the EC2 instance using the AWS CLI.
 
                cat lab_policy.json
     ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d8acc706-008f-4f4f-b819-92675cf83fdd)
+
+    # Conclusion
+
+    I have successfully done the following:
+
+      * Installed and configured the AWS CLI
+      * Connected the AWS CLI to an AWS account
+      * Accessed IAM by using the AWS CLI
+    
