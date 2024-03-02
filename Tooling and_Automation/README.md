@@ -160,6 +160,53 @@ With Session Manager, a capability of Systems Manager, you can manage your EC2 i
 
 When you use Session Manager with Microsoft Windows, Session Manager provides access to a PowerShell console on the instance.
 
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d43fd3e3-7dcc-494c-855c-f936428e48b5)
+
+In the preceding diagram, Systems Manager uses Session Manager to access the EC2 instance without having to connect to the instance by using SSH. Session Manager is one of the secure ways to access the instance.
+
+I access the EC2 instance through Session Manager.
+
+* **Step-18**In the left navigation pane, for Node Management, choose Session Manager.
+* ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3b6735bf-3ba7-42b6-86b1-f483fca2222c)
+
+
+* **Step-18**Choose Start session
+
+* **Step-18**Select Managed Instance.
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c04a36c8-f574-492e-b7cb-b69b827424ab)
+
+
+* **Step-18**Choose Start session
+A new session tab opens in your browser.
+
+To activate the cursor, choose anywhere in the session window.
+
+* **Step-18**Run the following command in the session window:
+
+           ls /var/www/html
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ce724a6d-927b-44a9-a55f-f605512511da)
+
+The output lists the application files that were installed on the instance.
+
+* **Step-18**Run the following command in the session window:
+  
+                # Get region
+                AZ=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+                export AWS_DEFAULT_REGION=${AZ::-1}
+                # List information about EC2 instances
+                 aws ec2 describe-instances
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5eac6d3a-f29b-47cc-8155-0afcd900e6bd)
+
+
+The output lists the EC2 instance details for the Managed Instance in JSON format.
+
+you can use Session Manager to log in to an instance without using SSH. You can also verify this capability by confirming that the SSH port is closed for the instance's security group.
+
+You can restrict access to Session Manager through AWS Identity and Access Management (IAM) policies, and AWS CloudTrail logs Session Manager usage. These options provide better security and auditing than traditional SSH access.
+
+
    
 
 
