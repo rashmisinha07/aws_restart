@@ -207,6 +207,15 @@ you can use Session Manager to log in to an instance without using SSH. You can 
 You can restrict access to Session Manager through AWS Identity and Access Management (IAM) policies, and AWS CloudTrail logs Session Manager usage. These options provide better security and auditing than traditional SSH access.
 
 
+Conclusion
+Congratulations! You now have successfully done the following:
+
+Verified configurations and permissions
+Run tasks on multiple servers
+Updated application settings or configurations
+Accessed the command line on an instance
+
+
    
 
 
