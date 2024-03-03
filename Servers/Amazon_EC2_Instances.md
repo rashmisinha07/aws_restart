@@ -349,7 +349,7 @@ I can also see the instance on the Amazon EC2 management console.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/05fcfaa4-d8db-443a-9ee1-b71c79c87d65)
 
-# challenge 1: Connect to an EC2 instance
+# Challenge 1: Connect to an EC2 instance
 
 In this challenge, I troubleshoot the security configuration of an instance called Misconfigured Web Server.
 
