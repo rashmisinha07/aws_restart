@@ -9,7 +9,7 @@ The following diagram illustrates the final architecture that you will build:
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/e5b5f615-1eb7-49e6-b9a0-ac491727d13f)
 
-# Launching an EC2 Instance by using the AWS Management Console
+## Launching an EC2 Instance by using the AWS Management Console
 
 I launch an EC2 instance by using the AWS Management Console. The instance will be a bastion host from which I can use the AWS CLI.
 
@@ -19,7 +19,7 @@ I launch an EC2 instance by using the AWS Management Console. The instance will 
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/74aaf39e-64b0-48e5-9643-ae14ca3af89e)
 
-# Choose name and tags
+## Choose name and tags
 
 I use tags to categorize my AWS resources in different ways, such as by purpose, owner, or environment. This categorization is useful when I have many resources of the same type; I can quickly identify a specific resource by its tags. Each tag consists of a key and a value, both of which I define.
 
@@ -30,7 +30,7 @@ When my name my instance, AWS creates a key-value pair. The key for this pair is
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ab0b5d46-f57d-4421-bac7-a0ea1fbe05fd)
 
 
-  # Choose an AMI
+  ## Choose an AMI
 
   In this step, I choose an Amazon Machine Image (AMI). An AMI includes the following:
 
@@ -50,7 +50,7 @@ When my name my instance, AWS creates a key-value pair. The key for this pair is
 
    **Note:** This option corresponds to Amazon Linux 2 AMI (HVM) as indicated in the **Description**.
 
-   # Choose an instance type
+   ## Choose an instance type
 
    In this step, I choose an instance type, which determines the resources that will be allocated to my EC2 instance. Each instance type allocates a combination of virtual CPU, memory, disk storage, and network performance.
 
@@ -63,7 +63,7 @@ My application uses a t3.micro instance type, which is a small instance that can
 
   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/acc1d9c5-1a5e-47f5-91ae-3272acc065ce)
 
-  # Configure a key pair
+  ## Configure a key pair
   Amazon EC2 uses public key cryptography to encrypt and decrypt login information. To log in to my instance, I must create a key pair, specify the name of the key pair when I launch the instance, and provide the private key when I connect to the instance.
 
 I use EC2 Instance Connect to log in to my instance, so I do not require a key pair.
@@ -72,7 +72,7 @@ I use EC2 Instance Connect to log in to my instance, so I do not require a key p
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/af62a21d-2498-4b92-b69a-ad18b33c50f4)
 
-# Configure the network settings
+## Configure the network settings
 
 I use this pane to configure networking settings.
 
@@ -100,14 +100,14 @@ A security group acts as a virtual firewall that controls the traffic for one or
 
    ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/b7af1d5c-d8df-4e6d-bd55-2fde18c9655b)
 
-   # Add storage
+   ## Add storage
    
 I can use this step to add additional Amazon Elastic Block Store (Amazon EBS) disk volumes and configure their size and performance.
 I launch the EC2 instance using a default 8 gibibyte (GiB) disk volume. This is my root volume (also known as a boot volume).
 
 * **Step 10:** In the Configure storage pane, keep the default storage configuration.
 
-  # Configure advanced details
+  ## Configure advanced details
 
 * **Step 11:** Expand the **Advanced details** pane.
 
@@ -119,11 +119,190 @@ I launch the EC2 instance using a default 8 gibibyte (GiB) disk volume. This is 
 
  * **Step 12:** Leave the default settings for all the other values.
 
-   # Launch an EC2 instance
+   ## Launch an EC2 instance
 
    Now that I have configured my EC2 instance settings, it is time to launch my instance.
 
-  * **Step 13:** In the Summary section, review the instance configuration details displayed, and choose Launch instance.
+  * **Step 13:** In the **Summary** section, review the instance configuration details displayed, and choose **Launch instance**.
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/e4fe2b61-19c4-44db-95cf-41eb058ea0bc)
+
+* **Step 14:** Choose View all instances.
+
+  # Logging in to the bastion host
+
+  I use EC2 Instance Connect to log in to the bastion host that I just created.
+
+ * **Step 15:** On the EC2 Management Console, from the list of EC2 instances displayed, choose the :ballot_box_with_check: check box for the bastion host instance.
+   
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/87b6ff91-a664-43d1-bc8b-13c29370ab65)
+
+  * **Step 16:** Choose Connect.
+ * **Step 17:** On the EC2 Instance Connect tab, choose Connect to connect to the bastion host.
+   
+    ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/075a3372-5e06-4df6-a07c-26b444205204)
+
+   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8028216e-5ded-4eba-996e-aedbc1bcd8c5)
+
+
+   # Launching an EC2 instance using the AWS CLI
+   
+I launch an EC2 instance using the AWS CLI. With the AWS CLI, I can automate the provisioning and configuration of AWS resources. Launching EC2 instance by using a CLI command is similar to launching an instance using the console. When I use a CLI command, I need to supply all the parameters to the command to successfully run it and launch.
+
+I can enter this information or retrieve it from the environment using CLI commands (for example, the AMIId, SubnetId, and SecurityGroupId commands in this scenario).
+
+I need to configure the new EC2 instance as a web server. In addition to providing the parameters previously mentioned, I also need to use the user data script to install the Apache web server.
+
+I run the scripts or commands provided in the following section in the EC2 Instance Connect session.
+
+## Retrieve the AMI to use
+
+One of the parameters required when launching an instance is the AMI, which populates the boot disk of the instance. AWS continually patches and updates AMIs, so it is recommended to always use the latest AMI when launching instances.
+
+I used AWS Systems Manager Parameter Store to retrieve the ID of the most recent Amazon Linux 2 AMI. AWS maintains a list of standard AMIs in Parameter Store, which makes it possible to automate this task.
+
+* **Step 18:** Run the following script in your EC2 Instance Connect session:
+
+        #Set the Region
+         AZ=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+         export AWS_DEFAULT_REGION=${AZ::-1}
+         #Retrieve latest Linux AMI
+         AMI=$(aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --query 
+        'Parameters[0].[Value]' --output text)
+         echo $AMI
+
+ **Script explanation**
+
+ * The script retrieves the Availability Zone for the running instance using instance metadata.
+
+ * The script retrieves the Region from the Availability Zone and exports it into the environment for subsequent use.
+
+ * The script calls the AWS Systems Manager (indicated with the ssm command) and uses the get-parameters command to retrieve 
+  the AMI ID from Parameter Store.
+
+ * The AMI requested was for Amazon Linux 2 (which is the same as the one used for bastion host).
+
+ * The AMI ID has been stored in an environment variable called AMI.
+
+ * If your EC2 Instance Connect session disconnects, it will lose the information stored in the environment variables. Refresh my browser to reconnect. If I do so, I will need to re-run all of the steps in this task, starting with the commands in this step, to obtain the AMI ID.
+
+
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c6b1ba63-8da6-4908-856f-81dcf1b2cd68)
+
+
+  ## Retrieve the subnet to use
+
+I launch the new instance in the public subnet. When launching an instance, I can specify the subnet ID.
+
+* **Step 19:** To retrieve the subnet ID for the public subnet, run the following command:
+
+
+           SUBNET=$(aws ec2 describe-subnets --filters 'Name=tag:Name,Values=Public Subnet' --query Subnets[].SubnetId -- 
+            output text)
+            echo $SUBNET
+
+  
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/9eb57482-ad93-4d72-8df9-39964c6a0bf4)
+
+  This script runs the aws ec2 command with the describe-subnets subcommand to retrieve the subnet ID of the subnet named Public Subnet.
+
+  ## Retrieve the security group to use
+
+  This lab includes a web security group, which allows inbound HTTP requests.
+
+* **Step 20:**   Run the following command:
+
+
+        SG=$(aws ec2 describe-security-groups --filters Name=group-name,Values=WebSecurityGroup --query 
+        SecurityGroups[].GroupId --output text)
+        echo $SG
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3ca3ddc4-7d75-49b0-bf46-55f56ef082da)
+
+
+  The script runs the aws ec2 command with the describe-security-groups subcommand to retrieve the security group ID of the web security group.
+
+
+  ## Download a user data script
+
+  I launch an instance that acts as a web server. To install and configure the web server, I provide a user data script that automatically runs when the instance launches.
+
+  * **Step 21:** To download the user data script, run the following command:
+
+       wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-RESTRT-1-23732/171-lab-JAWS-create- 
+       ec2/s3/UserData.txt
+
+
+
+    ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/167bcf2b-716c-4287-8f20-9ede6bd48e4b)
+
+  * **Step 22:**  To view the contents of the script, run the following command:
+
+               cat UserData.txt
+
+
+    ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a59d6e1e-81ee-47e5-bac6-8448a10f8ec4)
+
+    The script does the following:
+
+ * Installs a web server
+ * Downloads a .zip file containing the web application
+ * Installs the web application
+
+   ## Launch the instance
+
+   I have all the necessary information required to launch the web server instance.
+
+   * **Step 23:** Run the following command:
+
+           INSTANCE=$(\
+           aws ec2 run-instances \
+           --image-id $AMI \
+           --subnet-id $SUBNET \
+           --security-group-ids $SG \
+           --user-data file:///home/ec2-user/UserData.txt \
+           --instance-type t3.micro \
+           --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Web Server}]' \
+           --query 'Instances[*].InstanceId' \
+           --output text \
+           )
+           echo $INSTANCE
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3ba7e115-38e5-4ab5-9055-b8b737cb7e41)
+
+
+     The run-instances command launches a new instance using these parameters:
+
+  * **Image:** Uses the AMI value obtained earlier from Parameter Store
+
+* **Subnet:** Specifies the public subnet retrieved earlier and, by association, the VPC in which to launch the instance
+
+* **Security group:** Uses the web security group retrieved earlier, which permits HTTP access
+
+* **User data:** References the user data script that you downloaded, which installs the web application
+
+* **Instance type:** Specifies the type of instance to launch
+
+* **Tags:** Assigns a name tag with the value of **Web Server**
+
+The query parameter specifies that the command should return the instance ID once the instance is launched.
+
+The output parameter specifies that the output of the command should be in text. Other output options are json and table.
+
+**Note:** The ID of the new instance has been stored in the INSTANCE environment variable.
+
+ 
+
+
+
+
+
+
+
+
+    
+
 
 
 
