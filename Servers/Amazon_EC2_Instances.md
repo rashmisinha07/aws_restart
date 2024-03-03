@@ -230,8 +230,8 @@ I launch the new instance in the public subnet. When launching an instance, I ca
 
   * **Step 21:** To download the user data script, run the following command:
 
-       wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-RESTRT-1-23732/171-lab-JAWS-create- 
-       ec2/s3/UserData.txt
+         wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-RESTRT-1-23732/171-lab-JAWS-create- 
+         ec2/s3/UserData.txt
 
 
 
@@ -272,7 +272,7 @@ I launch the new instance in the public subnet. When launching an instance, I ca
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3ba7e115-38e5-4ab5-9055-b8b737cb7e41)
 
 
-     The run-instances command launches a new instance using these parameters:
+ The run-instances command launches a new instance using these parameters:
 
   * **Image:** Uses the AMI value obtained earlier from Parameter Store
 
@@ -292,7 +292,101 @@ The output parameter specifies that the output of the command should be in text.
 
 **Note:** The ID of the new instance has been stored in the INSTANCE environment variable.
 
+## Wait for the instance to be ready
+
+I can monitor the status of the instance by using the AWS Management Console or by querying the status by using the AWS CLI.
+
+* **Step 24 :** Run the following command:
+
+          aws ec2 describe-instances --instance-ids $INSTANCE
+
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0326fe12-a5f3-4dfa-8067-f60291daf1ec)
+
+  All information related to the instance is displayed in JSON format. This information includes the instance status.
+
+  I can retrieve specific information by using the query parameter.
+
+* **Step 25 :** Run the following command:
  
+             aws ec2 describe-instances --instance-ids $INSTANCE --query 'Reservations[].Instances[].State.Name' --output 
+             text
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0c00a7e9-06d5-4614-aacc-b6d948c8afd8)
+
+
+This command is the same as the command in the previous step, but rather than displaying all information about the instance, this command displays only the name of the instance state.
+
+This command displays a status of pending or running.
+Run this command again until it returns a status of running.
+
+
+  ## Test the web server
+
+  I can now test that the web server is working. I can retrieve a URL to the instance through the AWS CLI.
+
+ * **Step 26 :** Run the following command:
+
+         aws ec2 describe-instances --instance-ids $INSTANCE --query Reservations[].Instances[].PublicDnsName --output text
+
+   
+ 
+
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0792db28-8bf6-4b0b-801c-bb4fab63d857)
+
+This command returns the public IPv4 Domain Name System (DNS) name of the instance.
+
+Copy the DNS name that is displayed. It should be similar to the following: 
+
+ec2-34-219-32-112.us-west-2.compute.amazonaws.com
+
+Paste the DNS name into a new web browser tab, and then press Enter.
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/af6a533f-845c-43cc-8528-3b9caa5370ec)
+
+A web page should be displayed, which demonstrates that the web server was successfully launched and configured.
+I can also see the instance on the Amazon EC2 management console.
+
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/05fcfaa4-d8db-443a-9ee1-b71c79c87d65)
+
+# challenge 1: Connect to an EC2 instance
+
+In this challenge, I troubleshoot the security configuration of an instance called Misconfigured Web Server.
+
+The following are my tasks:
+
+Try to connect to the Misconfigured Web Server instance by using EC2 Instance Connect.
+
+Diagnose why this does not work, and fix the misconfiguration. 
+
+
+The problem with challenge 1 is that the old security groups doesn’t work. I have tried connecting to it using ssh many times with no success. Then I changed the security groups with the Bastion security groups and I was able to connect to it.
+
+
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/806a822c-e984-4c7a-bbd6-c082d17f56f1)
+
+
+
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/42455373-e076-4eb4-9c21-fe0f0cd8a683)
+
+
+
+
+# Conclusion
+
+I have successfully done the following:
+
+ * Launched an EC2 instance by using AWS Management Console
+ * Connected to the instance by using EC2 Instance Connect
+ * Launched an EC2 instance by using the AWS CLI
+
+ 
+
+
+
+
 
 
 
