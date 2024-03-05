@@ -1,7 +1,7 @@
 # Using Auto Scaling in AWS (Linux)
 ## Overview
 
- I used the AWS Command Line Interface (AWS CLI) to create an Amazon Elastic Compute Cloud (EC2) instance to host a web server and create an Amazon Machine Image (AMI) from that instance. I used that AMI as the basis for launching a system that scales automatically under a variable load by using Amazon EC2 Auto Scaling. I also create an Elastic Load Balancer to distribute the load across EC2 instances created in multiple Availability Zones by the auto scaling configuration. 
+ I used the AWS Command Line Interface (AWS CLI) to create an Amazon Elastic Compute Cloud (EC2) instance to host a web server and create an Amazon Machine Image (AMI) from that instance. I used that AMI as the basis for launching a system that scales automatically under a variable load by using Amazon EC2 Auto Scaling. I also created an Elastic Load Balancer to distribute the load across EC2 instances created in multiple Availability Zones by the auto scaling configuration. 
 
  Starting architecture:
 
@@ -14,25 +14,25 @@
 
  # Creating a new AMI for Amazon EC2 Auto Scaling
 
-you launch a new EC2 instance and then create a new AMI based on that running instance. You use the AWS CLI on the Command Host EC2 instance to perform all of these operations.
+ I launched a new EC2 instance and then create a new AMI based on that running instance. I used the AWS CLI on the Command Host EC2 instance to perform all of these operations.
 
 
 ## Connecting to the Command Host instance
 
-you use EC2 Instance Connect to connect to the Command Host EC2 instance that was created when the lab was provisioned. You use this instance to run AWS CLI commands.
+I used EC2 Instance Connect to connect to the Command Host EC2 instance that was created when the lab was provisioned. I used this instance to run AWS CLI commands.
 
-On the AWS Management Console, in the Search bar, enter and choose EC2 to open the EC2 Management Console.
+* **Step 1:** On the **AWS Management Console**, in the **Search** bar, enter and choose `EC2`  to open the **EC2 Management Console**.
 
-In the navigation pane, choose Instances.
+* **Step 2:** In the navigation pane, choose **Instances**.
 
-From the list of instances, select the  Command Host instance.
+* **Step 3:** From the list of instances, select the  **Command Host** instance.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c5786a12-8609-4f3c-a7ee-7b509af072a1)
 
 
-Choose Connect.
+* **Step 4:** Choose **Connect**.
 
-On the EC2 Instance Connect tab, choose Connect.
+* **Step 5:** On the **EC2 Instance Connect** tab, choose **Connect**.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/de2b2cc1-9229-4b03-92e3-667b8fb3e8a3)
 
@@ -42,73 +42,69 @@ On the EC2 Instance Connect tab, choose Connect.
 
 The AWS CLI is preconfigured on the Command Host instance.
 
-To confirm that the Region in which the Command Host instance is running is the same as the lab (the us-west-2 Region), run the following command:
+* **Step 6:** To confirm that the Region in which the Command Host instance is running is the same as the lab (the us-west-2 Region), run the following command:
 
       curl http://169.254.169.254/latest/dynamic/instance-identity/document | grep region
 
 
 
-      ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ab278176-bafb-4b75-85f4-a9ceb6d1f2ec)
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ab278176-bafb-4b75-85f4-a9ceb6d1f2ec)
 
 
+   I used this Region information in the next steps.
 
-      You use this Region information in the next steps.
 
-
-      To update the AWS CLI software with the correct credentials, run the following command:
+* **Step 7:** To update the AWS CLI software with the correct credentials, run the following command:
 
                aws configure
 
 
-               At the prompts, enter the following information:
+* **Step 8:** At the prompts, enter the following information:
 
-AWS Access Key ID: Press Enter.
+  * **AWS Access Key ID**: Press Enter.
 
-AWS Secret Access Key: Press Enter.
+  * **AWS Secret Access Key**: Press Enter.
 
-Default region name: Enter the name of the Region from the previous steps in this task (for example, us-west-2). If the Region is already displayed, press Enter.
+  * **Default region name**: Enter the name of the Region from the previous steps in this
+   task  (for example, `us-west-2`). If the Region is already displayed, press Enter.
 
-Default output format: Enter json
+  * **Default output format**: Enter `json`
 
-Now you are ready to access and run the scripts detailed in the following steps.
+Now I am ready to access and run the scripts detailed in the following steps.
 
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3bd41c84-6354-42a6-be34-74bb0ba4ec29)
 
 
-To access these scripts, enter the following command to navigate to their directory:
+* **Step 9:** To access these scripts, enter the following command to navigate to their directory:
 
       cd /home/ec2-user/
 
 
 # Creating a new EC2 Instance
-you use the AWS CLI to create a new instance that hosts a web server. 
+I used the AWS CLI to create a new instance that hosts a web server. 
 
-To inspect the UserData.txt script that was installed for you as part of the Command Host creation, run the following command:
+* **Step 10:** To inspect the UserData.txt script that was installed for me as part of the Command Host creation, run the following command:
 
-     more UserData.txt
-
-
-
+        more UserData.txt
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/069d99aa-b31b-4d47-858a-f411587808cb)
 
-
-     This script performs a number of initialization tasks, including updating all installed software on the box and installing a small PHP web application that you can use to simulate a high CPU load on the instance. The following lines appear near the end of the script:
-
-
-
-
-     At the top of this page, choose Details, and choose Show.
-
-
-
-     Copy the KEYNAME, AMIID, HTTPACCESS, and SUBNETID values into a text editor document, and then choose X to close the Credentials panel.
+This script performs a number of initialization tasks, including updating all installed software on the box and installing a small PHP web application that I can use to simulate a high CPU load on the instance. The following lines appear near the end of the script:
 
 
 
 
-     ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6c18795d-7930-4261-8db3-5527c9d0a94f)
+* **Step 11:** At the top of this page, choose **Details**, and choose **Show**.
+
+* **Step 12:** Copy the **KEYNAME**,**AMIID**, **HTTPACCESS**, and **SUBNETID** values into a text editor document, and then choose **X** to close the **Credentials** panel.
+
+* **Step 13:** In the following script, replace the corresponding text with the values from the previous step.
+
+      aws ec2 run-instances --key-name KEYNAME --instance-type t3.micro --image-id AMIID --user-data file:///home/ec2-user/UserData.txt --security-group-ids HTTPACCESS --subnet-id SUBNETID --associate-public-ip-address --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=WebServer}]' --output text --query 'Instances[*].InstanceId'
+
+  
+ ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6c18795d-7930-4261-8db3-5527c9d0a94f)
 
      Enter your modified script into the terminal window, and run the script.
 
