@@ -205,9 +205,8 @@ I created a load balancer that can balance traffic across multiple EC2 instances
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/2e047819-fce6-4142-89e9-385896934ccf)
 
 
-For the first Availability Zone, choose Public Subnet 1.
-
-For the second Availability Zone, choose Public Subnet 2.
+   * For the first Availability Zone, choose **Public Subnet 1**.
+   * For the second Availability Zone, choose **Public Subnet 2**.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/fb904e9c-35c4-483b-80d8-d969983ae6e8)
 
@@ -215,48 +214,50 @@ For the second Availability Zone, choose Public Subnet 2.
 These options configure the load balancer to operate across multiple Availability Zones.
 
 
-In the Security groups section, choose the X for the default security group to remove it.
+* **Step 27:** In the **Security groups** section, choose the **X** for the **default** security group to remove it.
 
-From the Security groups dropdown list, choose HTTPAccess.
+From the **Security groups** dropdown list, choose **HTTPAccess**.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8cd40f49-0f7d-4374-92eb-ac15629e0377)
 
 
-The HTTPAccess security group has already been created for you, which permits HTTP access.
+The **HTTPAccess** security group has already been created for you, which permits HTTP access.
 
-In the Listeners and routing section, choose the Create target group link.
+* **Step 28:** In the **Listeners and routing** section, choose the **Create target group** link.
 
-Note: This link opens a new browser tab with the Create target group configuration options.
+**Note**: This link opens a new browser tab with the Create target group configuration options.
 
-On the Specify group details page, in the Basic configuration section, configure the following options:
+* **Step 29:** On the **Specify group details** page, in the **Basic configuration** section, configure the following options:
 
-For Choose a target type, choose Instances.
+    * For **Choose a target type**, choose **Instances**.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/b67b22ff-0465-449b-ab2a-22405c4c8c44)
 
-For Target group name, enter webserver-app
+     * For **Target group name**, enter `webserver-app`
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/96002c59-649f-455d-8232-490b1d83f862)
 
-In the Health checks section, for Health check path, enter /index.php
+* **Step 30:** In the **Health checks** section, for **Health check path**, enter `/index.php`
+  
+
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/1ee1d1c4-d3de-4350-8039-5eece4c7a65c)
 
-At the bottom of the page, choose Next.
+* **Step 31:** At the bottom of the page, choose **Next**.
 
-On the Register targets page, choose Create target group.
+* **Step 32:** On the **Register targets** page, choose **Create target group**.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/9f38c476-c7ed-4794-a9e6-1a18079cdf48)
 
 
-Once the target group has been created successfully, close the Target groups browser tab.
+Once the target group has been created successfully, close the **Target groups** browser tab.
 
-Return to the Load balancers browser tab, and locate the Listeners and routing section. For Default action, choose  Refresh to the right of the Forward to dropdown list.
+* **Step 33:** Return to the **Load balancers** browser tab, and locate the **Listeners and routing** section. For **Default action**, choose  **Refresh** to the right of the **Forward to** dropdown list.
 
-From the Forward to dropdown list, choose webserver-app.
+* **Step 34:** From the **Forward to** dropdown list, choose **webserver-app**.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c4313d3d-1373-4b19-8024-d640b1d9476c)
 
 
-At the bottom of the page, choose Create load balancer.
+* **Step 35:** At the bottom of the page, choose **Create load balancer**.
 
-   You should receive a message similar to the following:
+   I should receive a message similar to the following:
 
     Successfully created load balancer: WebServerELB
 
