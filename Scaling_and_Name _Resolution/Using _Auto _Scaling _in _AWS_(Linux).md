@@ -37,7 +37,7 @@ I used EC2 Instance Connect to connect to the Command Host EC2 instance that was
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/de2b2cc1-9229-4b03-92e3-667b8fb3e8a3)
 
 
-# Configuring the AWS CLI
+## Configuring the AWS CLI
 
 
 The AWS CLI is preconfigured on the Command Host instance.
@@ -81,7 +81,7 @@ Now I am ready to access and run the scripts detailed in the following steps.
       cd /home/ec2-user/
 
 
-# Creating a new EC2 Instance
+## Creating a new EC2 Instance
 I used the AWS CLI to create a new instance that hosts a web server. 
 
 * **Step 10:** To inspect the UserData.txt script that was installed for me as part of the Command Host creation, run the following command:
@@ -106,105 +106,101 @@ This script performs a number of initialization tasks, including updating all in
   
  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6c18795d-7930-4261-8db3-5527c9d0a94f)
 
-     Enter your modified script into the terminal window, and run the script.
+* **Step 14:** Enter your modified script into the terminal window, and run the script.
 
-The output of this command provides you with an InstanceId. Subsequent steps in this lab refer to this value as NEW-INSTANCE-ID. Replace this value as needed throughout this lab. 
+The output of this command provides me with an **InstanceId**. Subsequent steps in this lab refer to this value as **NEW-INSTANCE-ID**. Replace this value as needed throughout this lab. 
 
-Copy and paste the InstanceId value into a text editor to use later. 
+* **Step 15:** Copy and paste the **InstanceId** value into a text editor to use later. 
 
-To use the aws ec2 wait instance-running command to monitor this instance's status, replace NEW-INSTANCE-ID in the following command with the InstanceID value that you copied in the previous step. Run your modified command. 
+* **Step 16:** To use the aws ec2 wait instance-running command to monitor this instance's status, replace NEW-INSTANCE-ID in the following command with the InstanceID value that I copied in the previous step. Run  modified command. 
+ 
 
+     aws ec2 wait instance-running --instance-ids i-04c4f4b65068aa24d
 
-     aws ec2 wait instance-running --instance-ids NEW-INSTANCE-ID
+Wait for the command to return to a prompt before proceeding.
 
+My instance starts a new web server. To test that the web server was installed properly, I must obtain the public DNS name.
 
-     To obtain the public DNS name, in the following command, replace NEW-INSTANCE-ID with the value that you copied previously, and run your modified command:
-
-
-         aws ec2 describe-instances --instance-id NEW-INSTANCE-ID --query 'Reservations[0].Instances[0].NetworkInterfaces[0].Association.PublicDnsName'
-
-
-
-         ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/20b8254c-339d-42b5-ab7d-6fdd40b65f4b)
+* **Step 17:** To obtain the public DNS name, in the following command, replace NEW-INSTANCE-ID with the value that I copied previously, and run modified command:
 
 
+        aws ec2 describe-instances --instance-id i-04c4f4b65068aa24d --query 
+       'Reservations[0].Instances[0].NetworkInterfaces[0].Association.PublicDnsName'
 
-         Copy the output of this command without the quotation marks. 
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/20b8254c-339d-42b5-ab7d-6fdd40b65f4b)
 
-The value of this output is referred to as PUBLIC-DNS-ADDRESS in the next steps. 
 
-In a new browser tab, enter the output that you copied from the previous step.
+
+* **Step 18:** Copy the output of this command without the quotation marks. 
+
+The value of this output is referred to as **PUBLIC-DNS-ADDRESS** in the next steps. 
+
+* **Step 19:** In a new browser tab, enter the output that I copied from the previous step.
 
 It could take a few minutes for the web server to be installed. Wait 5 minutes before continuing to the next steps.
 
-
-
-
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/11107b0a-2819-4d35-bc20-c2f5ef89646d)
 
-Do not choose Start Stress at this stage. 
+Do not choose **Start Stress** at this stage. 
 
-In the following command, replace PUBLIC-DNS-ADDRESS with the value that you copied in the previous steps, and then run your modified command.
+* **Step 20:** In the following command, replace PUBLIC-DNS-ADDRESS with the value that I copied in the previous steps, and then run  modified command.
 
-   http://ec2-35-167-43-98.us-west-2.compute.amazonaws.com/index.php
+      http://ec2-35-167-43-98.us-west-2.compute.amazonaws.com/index.php
 
-
-
-   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6c04d031-1817-40cf-9762-43a9d4f3cd8e)
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6c04d031-1817-40cf-9762-43a9d4f3cd8e)
 
 
-  # Creating a Custom AMI
+  ## Creating a Custom AMI
 
-  you create a new AMI based on that instance that you just created.
+  I created a new AMI based on that instance that I just created.
 
-To create a new AMI based on this instance, in the following aws ec2 create-image command, replace NEW-INSTANCE-ID with the value that you copied previously, and run your adjusted command:
+* **Step 21:** To create a new AMI based on this instance, in the following aws ec2 create-image command, replace NEW-INSTANCE-ID with the value that I copied previously, and run adjusted command:
 
 
      aws ec2 create-image --name WebServerAMI --instance-id i-04c4f4b65068aa24d
 
 
-     ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/82b28c24-da7b-4345-9e4c-cb2fe98b6e97)
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/82b28c24-da7b-4345-9e4c-cb2fe98b6e97)
 
 
 
-     By default, the aws ec2 create-image command restarts the current instance before creating the AMI to ensure the integrity of the image on the file system. While your AMI is being created, proceed to the next task.
+     By default, the aws ec2 create-image command restarts the current instance before creating the AMI to ensure the integrity of the image on the file system. While my AMI is being created, proceed to the next task.
 
 
-     # Creating an auto scaling environment
+# Creating an auto scaling environment
 
-     you create a load balancer that pools a group of EC2 instances under a single Domain Name System (DNS) address. You use auto scaling to create a dynamically scalable pool of EC2 instances based on the image that you created in the previous task. Finally, you create a set of alarms that scale out or scale in the number of instances in your load balancer group whenever the CPU performance of any machine within the group exceeds or falls below a set of specified thresholds.
+I created a load balancer that pools a group of EC2 instances under a single Domain Name System (DNS) address. I used auto scaling to create a dynamically scalable pool of EC2 instances based on the image that I created in the previous task. Finally, I created a set of alarms that scale out or scale in the number of instances in my load balancer group whenever the CPU performance of any machine within the group exceeds or falls below a set of specified thresholds.
 
-You can perform the following task by using either the AWS CLI or the AWS Management Console. For this lab, you use the AWS Management Console.
-
-
-# Creating an Application Load Balancer
+I can perform the following task by using either the AWS CLI or the AWS Management Console. For this lab, I used the AWS Management Console.
 
 
-you create a load balancer that can balance traffic across multiple EC2 instances and Availability Zones.
+## Creating an Application Load Balancer
 
-On the EC2 Management Console, in the left navigation pane, locate the Load Balancing section, and choose Load Balancers.
+
+I created a load balancer that can balance traffic across multiple EC2 instances and Availability Zones.
+
+* **Step 22:** On the EC2 Management Console, in the left navigation pane, locate the Load Balancing section, and choose **Load Balancers**.
 
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a62318cd-4ee7-49bd-b7ad-2921edfe6e3e)
 
 
-Choose Create load balancer.
+* **Step 23:** Choose Create load balancer.
 
-In the Load balancer types section, for Application Load Balancer, choose Create.
+* **Step 24:** In the **Load balancer types** section, for **Application Load Balancer**, choose **Create**.
 
-On the Create Application Load Balancer page, in the Basic configuration section, configure the following option:
+* **Step 25:** On the **Create Application Load Balancer** page, in the **Basic configuration** section, configure the following option:
 
-For Load balancer name, enter WebServerELB
-
+   * For **Load balancer name**, enter `WebServerELB`
 
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5e02e81b-6164-4c85-9453-7ca2734de4bb)
 
-In the Network mapping section, configure the following options:
+* **Step 26:** In the **Network mapping** section, configure the following options:
 
-For VPC, choose Lab VPC.
+   * For **VPC**, choose **Lab VPC**.
 
-For Mappings, choose both Availability Zones listed.
+   * For **Mappings**, choose both Availability Zones listed.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/2e047819-fce6-4142-89e9-385896934ccf)
 
