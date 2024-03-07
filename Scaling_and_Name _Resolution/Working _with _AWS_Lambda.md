@@ -530,6 +530,7 @@ To verify that the salesAnalysisReport-v2.zip file containing the code for the s
 
        cd activity-files
          ls
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/da4c1d83-e53c-48e7-871c-2c8c2cc43e90)
 
 Note: Before you create the function, you must retrieve the ARN of the salesAnalysisReportRole IAM role. You specify it in the following steps.
 
@@ -555,8 +556,12 @@ aws lambda create-function \
 --runtime python3.9 \
 --zip-file fileb://salesAnalysisReport-v2.zip \
 --handler salesAnalysisReport.lambda_handler \
---region <region> \
---role <salesAnalysisReportRoleARN>
+--region us-west-2 \
+--role arn:aws:iam::767398040937:role/salesAnalysisReportRole
+
+
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ecbe14a4-683c-4a64-adb5-6d7dafb8d0e5)
 
 Once the command completes, it returns a JSON object describing the attributes of the function. You now complete its configuration and unit test it.
 
@@ -565,6 +570,7 @@ Once the command completes, it returns a JSON object describing the attributes o
 Open the Lambda management console.
 
 Choose Functions, and then choose salesAnalysisReport. 
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7dc87444-8ff9-4fac-b7e2-01402f3399c8)
 
 The Details page for the function opens.
 
@@ -573,6 +579,7 @@ Review the details in the Function overview and Code source panels for the creat
 In particular, read through the function code, and use the embedded comments to help you understand the logic.
 
 Notice on line 26 that the function retrieves the ARN of the topic to publish to, from an environment variable named topicARN. Therefore, you need to define that variable in the Environment variables panel.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/9a0b2557-e1cd-4c83-b667-6313e7b0a3c0)
 
 Choose the Configuration tab, and choose Environment variables.
 
@@ -583,8 +590,108 @@ Choose Add environment variable, and configure the following options:
 Key: Enter topicARN
 
 Value: Paste the ARN value of the salesAnalysisReportTopic SNS topic that you copied earlier.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/56ea65d1-cb4f-429b-b3e1-184d615ca1de)
 
 Choose Save.
 
 The following message appears: "Successfully updated the function salesAnalysisReport."
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/06821907-50a0-4946-a70f-445e4724a7c9)
+
+## Testing the salesAnalysisReport Lambda function
+
+Choose the Test tab, and configure the test event as follows:
+
+For Test event action, choose Create new event.
+
+For Event name, enter SARTestEvent
+
+For Template, choose hello-world.
+
+The function does not require any input parameters. Leave the default JSON lines as is.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/36168d80-5814-4d48-b933-e95b523091d5)
+
+Choose Save.
+
+Choose Test.
+
+A green box with the message “Execution result: succeeded (logs)” appears.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/796af94c-268a-4bb4-b36f-0226cc9ff54c)
+
+Tip: If you get a timeout error, choose the Test button again. Sometimes, when you first run a function, it takes a little longer to initialize, and the Lambda default timeout value (3 seconds) is exceeded. Usually, you can run the function again, and the error will go away. Alternatively, you can increase the timeout value. To do so, follow these steps:
+
+Choose the Configuration tab.
+
+Choose General configuration.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/2fda1fed-839f-4f47-b8a0-3354ee64408a)
+
+Choose Edit.
+
+Adjust the Timeout as needed. 
+
+Choose Save.
+Choose Details to expand it.
+
+The function should have returned the following JSON object:
+
+       {
+         "statusCode": 200,
+         "body": "\"Sale Analysis Report sent.\""
+        }
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7eee509a-7701-493c-8e9d-72e3ee30533e)
+
+
+Check your email inbox.
+
+If there were no errors, you should receive an email from AWS Notifications with the subject "Daily Sales Analysis Report."
+
+The email should contain a report that is similar to the following image depending on the orders that you placed on the café website:
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/bcf18aae-14e0-47aa-8a10-bea3ba5672d8)
+You can place more orders on the café website and test the function to see the changes in the report that you receive.
+
+Great job! You have successfully unit tested the salesAnalysisReport Lambda function.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/69b47b7a-b4b1-42a7-9ce2-f2dea98f971a)
+
+
+## Adding a trigger to the salesAnalysisReport Lambda function
+To complete the implementation of the salesAnalysisReport function, configure the report to be initiated Monday through Saturday at 8 PM each day. To do so, use a CloudWatch Events event as the trigger mechanism.
+In the Function overview panel, choose Add trigger. The Add trigger panel is displayed.
+
+In the Add trigger panel, configure the following options:
+
+In the Trigger configuration pane, from the dropdown list, choose EventBridge (CloudWatch Events).
+
+For Rule, choose Create a new rule. 
+
+For Rule name, enter salesAnalysisReportDailyTrigger
+
+For Rule description, enter Initiates report generation on a daily basis
+
+For Rule type, choose Schedule expression.
+
+For Schedule expression, specify the schedule that you would like by using a Cron expression. The general syntax of a Cron expression requires six fields separated by spaces as follows: 
+
+cron(Minutes Hours Day-of-month Month Day-of-week Year): In addition, all times in a Cron expression are based on the UTC time zone.
+
+Note: For testing purposes, enter an expression that schedules the trigger 5 minutes from the current time. You can use the following examples:
+
+If you are in London (UTC time zone), and the current time is 11:30 AM, enter the following expression:
+
+cron(35 11 ? * MON-SAT *)
+
+If you are in New York (UTC time zone -5 during Eastern Standard Time), and the current time is 11:30 AM, enter the following expression:
+
+cron(35 16 ? * MON-SAT *)
+
+This Cron expression schedules the event to be invoked at 11:35 AM Monday through Saturday.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a0d14685-c3f8-4e61-a7bc-aaef84c8ac72)
+
+Tip: For more information about the syntax of schedule expressions for rules, see Schedule Expressions for Rules.
+
+To get the correct UTC time, navigate to any browser and enter UTC time
+
+Choose Add.
+
+The new trigger is created and displayed in the Function overview panel and Triggers pane.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/dbb842df-fbe9-4df5-9851-99b0da0471a9)
 
