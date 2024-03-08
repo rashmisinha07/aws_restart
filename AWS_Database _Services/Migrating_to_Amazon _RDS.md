@@ -32,58 +32,62 @@ I browse the café website and place a few orders that are stored in the existin
 I open the café web application, and place some orders.
 
 * **Step 1:** To place orders, these are the details:
-  
-* CafeInstancePublicDNS	: ec2-52-38-0-14.us-west-2.compute.amazonaws.com
-* SecretKey	: XDsGcPpNOrsueyMHf4LexykjTV0/8Ikkd8gbkuQd
-* CafeInstanceAZ	: us-west-2a
-* LabRegion	:us-west-2
-* CafeVpcID	:vpc-016cfa33748d28ba2
-* AccessKey	:AKIA2UC3F2GUQSB7QGMX
-* CafeSecurityGroupID	:sg-0d8539469600b38b5
-* CafeInstanceURL	:52.38.0.14/cafe
-Copy the CafeInstanceURL value, and paste it into a new browser window.
 
-Note: The CafeinstanceURL value looks similar to 34.55.102.33/cafe. 
+     * CafeInstanceURL	:52.38.0.14/cafe
+* **Step 2:** Copy the **CafeInstanceURL** value, and paste it into a new browser window.
 
-Copy the other values from the table, and paste them into a text editor to use throughout the lab.
+  **Note:** The **CafeinstanceURL** value looks similar to 34.55.102.33/cafe. 
 
-On the cafe website, choose Menu, add at least one of each item to your order, and then choose Submit Order.
+* **Step 3:** Copy the other values from the table, and paste them into a text editor to use throughout the lab.
+
+   * CafeInstancePublicDNS	: ec2-52-38-0-14.us-west-2.compute.amazonaws.com
+   * SecretKey	: XDsGcPpNOrsueyMHf4LexykjTV0/8Ikkd8gbkuQd
+   * CafeInstanceAZ	: us-west-2a
+   * LabRegion	:us-west-2
+   * CafeVpcID	:vpc-016cfa33748d28ba2
+   * AccessKey	:AKIA2UC3F2GUQSB7QGMX
+   * CafeSecurityGroupID	:sg-0d8539469600b38b5
+     
+* **Step 4:** On the cafe website, choose **Menu**, add at least one of each item to your order, and then choose **Submit Order**.
+
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c27399fb-627d-43c1-a540-03c5736eb3d3)
 
-Go to the Order History page, and record the number of orders that you placed. Later in this lab, you can compare this number with the number of orders in the migrated database.
+* **Step 5:** Go to the **Order History** page, and record the number of orders that I placed. Later in this lab, I can compare this number with the number of orders in the migrated database.
 
 
 # Creating an Amazon RDS instance by using the AWS CLI
 
 
-you create an Amazon RDS instance by using the AWS CLI. To begin, you use EC2 Instance Connect to securely connect to the CLI Host instance already provisioned for you. This instance has the AWS CLI installed on it as part of provisioning. You then run AWS CLI commands to do the following:
+I created an Amazon RDS instance by using the AWS CLI. To begin, I use EC2 Instance Connect to securely connect to the **CLI Host** instance already provisioned for me. This instance has the AWS CLI installed on it as part of provisioning. I run AWS CLI commands to do the following:
 
-Configure the AWS CLI.
+ * Configure the AWS CLI.
 
-Create the following prerequisite components required to build the Amazon RDS instance:
+ * Create the following prerequisite components required to build the Amazon RDS instance:
 
-A security group firewall for the Amazon RDS instance
+     * A security group firewall for the Amazon RDS instance
 
-Two private subnets and a database subnet group
+     * Two private subnets and a database subnet group
 
-Create the Amazon RDS MariaDB instance.
-# Connecting to the CLI Host instance
+  * Create the Amazon RDS MariaDB instance.
+## Connecting to the CLI Host instance
 
- you use EC2 Instance Connect to connect to the CLI Host EC2 instance. You use this instance to run AWS CLI commands.
+ I use EC2 Instance Connect to connect to the CLI Host EC2 instance. I use this instance to run AWS CLI commands.
 
-On the AWS Management Console, in the Search bar, enter and choose EC2 to open the EC2 Management Console.
+* **Step 6:** On the **AWS Management Console**, in the **Search** bar, enter and choose `EC2` to open the **EC2 Management Console**.
 
-In the navigation pane, choose Instances.
+* **Step 7:** In the navigation pane, choose **Instances**.
 
-From the list of instances, select the  CLI Host instance.
+* **Step 8:** From the list of instances, select the :ballot_box_with_check: **CLI Host** instance.
+
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/22280405-8029-4edd-a1cd-c4adc371ce2c)
-Choose Connect.
 
-On the EC2 Instance Connect tab, choose Connect.
 
-Note: If you prefer to use an SSH client to connect to the EC2 instance, see the guidance to Connect to Your Linux Instance.
+* **Step 9:** Choose **Connect**.
 
-Now that you are connected to the CLI Host instance, you can configure and use the AWS CLI to call AWS services.
+* **Step 10:** On the **EC2 Instance Connect** tab, choose **Connect**.
+
+I  connected to the CLI Host instance, Im can configure and use the AWS CLI to call AWS services.
 
 # Configuring the AWS CLI
 
