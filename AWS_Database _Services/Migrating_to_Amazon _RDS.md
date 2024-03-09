@@ -459,7 +459,7 @@ I ready to configure the café website to use the Amazon RDS instance. This step
 * **Step 28:** On the **AWS Management Console**, in the **Search** bar, enter and choose `Systems Manager` to go to **AWS Systems Manager**.
 
 * **Step 29:** In the left navigation pane, choose **Parameter Store**.
-* 
+  
 * **Step 30:** From the **My parameters list**, choose **/cafe/dbUrl**. The current value of the parameter is displayed, along with its description and other metadata information.
 
 * **Step 31:** Choose **Edit**.
