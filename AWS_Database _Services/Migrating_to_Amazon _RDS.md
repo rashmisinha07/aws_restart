@@ -25,7 +25,7 @@ I migrate the local café database to an Amazon RDS database that resides outsid
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/50c9569b-05e3-4c90-8c79-a64e168a13b0)
 
-# Task 1: Generating order data on the café website
+# Generating order data on the café website
 
 I browse the café website and place a few orders that are stored in the existing database. Placing orders creates data for the application before the application is migrated to new Amazon RDS instance.
 
@@ -36,9 +36,7 @@ I open the café web application, and place some orders.
      * CafeInstanceURL	:52.38.0.14/cafe
 * **Step 2:** Copy the **CafeInstanceURL** value, and paste it into a new browser window.
 
-  **Note:** The **CafeinstanceURL** value looks similar to 34.55.102.33/cafe. 
-
-* **Step 3:** Copy the other values from the table, and paste them into a text editor to use throughout the lab.
+ * **Step 3:** Copy the other values from the table, and paste them into a text editor to use throughout the lab.
 
    * CafeInstancePublicDNS	: ec2-52-38-0-14.us-west-2.compute.amazonaws.com
    * SecretKey	: XDsGcPpNOrsueyMHf4LexykjTV0/8Ikkd8gbkuQd
@@ -130,7 +128,7 @@ I run AWS CLI commands in the EC2 Instance Connect terminal.
 I create the CafeDatabaseSG security group. This security group is used to protect the Amazon RDS instance. It will have an inbound rule that allows only MySQL requests (using the default TCP protocol and port 3306) from instances that are associated with the CafeSecurityGroup. This rule ensures that only the CafeInstance is able to access the database. 
 
 
- * **Step 12:** To create the security group, run the following command. In the command, replace **<CafeInstance VPC ID>** with the **CafeVpcID** value that I recorded earlier:
+ * **Step 13:** To create the security group, run the following command. In the command, replace **<CafeInstance VPC ID>** with the **CafeVpcID** value that I recorded earlier:
  
   
                   aws ec2 create-security-group \
@@ -156,7 +154,7 @@ After the command completes, copy and paste the **GroupId** from the output to a
 
 I created the inbound rule for the security group.
 
-* **Step 13:** To create the inbound rule, run the following command. In the command, replace <CafeDatabaseSG Group ID> with the **GroupId** value that I recorded in the previous step, and replace <CafeSecurityGroup Group ID> with the **CafeSecurityGroupID** value that you recorded earlier in the lab:
+* **Step 14:** To create the inbound rule, run the following command. In the command, replace <CafeDatabaseSG Group ID> with the **GroupId** value that I recorded in the previous step, and replace <CafeSecurityGroup Group ID> with the **CafeSecurityGroupID** value that you recorded earlier in the lab:
 
             aws ec2 authorize-security-group-ingress \
             --group-id <CafeDatabaseSG Group ID> \
@@ -179,7 +177,7 @@ I created the inbound rule for the security group.
 
 **Note:** follow the colors.
 
-* **Step 14:** To confirm that the inbound rule was applied appropriately, run the following command:
+* **Step 15:** To confirm that the inbound rule was applied appropriately, run the following command:
 
              aws ec2 describe-security-groups \
              --query "SecurityGroups[*].[GroupName,GroupId,IpPermissions]" \
@@ -200,7 +198,7 @@ I must assign the subnet a Classless Inter-Domain Routing (CIDR) address block t
  
 Consider these address ranges. Can I find a suitable CIDR block for the private subnet? One possible answer is to use the address range 10.200.2.0/23.
 
-* **Step 15:** To create the subnet, run the following command. In the command, replace <CafeInstance VPC ID> and <CafeInstance Availability Zone> with the values of **CafeVpcID** and **CafeInstanceAZ**, respectively, that I recorded earlier.
+* **Step 16:** To create the subnet, run the following command. In the command, replace <CafeInstance VPC ID> and <CafeInstance Availability Zone> with the values of **CafeVpcID** and **CafeInstanceAZ**, respectively, that I recorded earlier.
 
        aws ec2 create-subnet \
        --vpc-id <CafeInstance VPC ID> \
@@ -238,7 +236,7 @@ For the Availability Zone for the second subnet, I can choose any other Availabi
 
 
 
-* **Step 16:** To create the second subnet, run the following command. In the command, replace <CafeInstance VPC ID> with the value of **CafeVpcID** that I recorded earlier, and replace <availability-zone> with an Availability Zone that is different than the one that you used for the first subnet (for example, **us-west-2b**).
+* **Step 17:** To create the second subnet, run the following command. In the command, replace <CafeInstance VPC ID> with the value of **CafeVpcID** that I recorded earlier, and replace <availability-zone> with an Availability Zone that is different than the one that you used for the first subnet (for example, **us-west-2b**).
 
       aws ec2 create-subnet \
       --vpc-id <CafeInstance VPC ID> \
@@ -264,7 +262,7 @@ Next, I create CafeDB Subnet Group.
 For the Amazon RDS instance for the café, the DB subnet group consists of the two private subnets that I created in the previous steps: CafeDB Private Subnet 1 and CafeDB Private Subnet 2.
 
 
-* **Step 17:** In the terminal window, run the following command. In the command, replace <Cafe Private Subnet 1 ID> and <Cafe Private Subnet 2 ID> with the subnet ID values that you recorded earlier for each private subnet. Note that there is a space between the subnet IDs in the command.
+* **Step 18:** In the terminal window, run the following command. In the command, replace <Cafe Private Subnet 1 ID> and <Cafe Private Subnet 2 ID> with the subnet ID values that you recorded earlier for each private subnet. Note that there is a space between the subnet IDs in the command.
 
        aws rds create-db-subnet-group \
        --db-subnet-group-name "CafeDB Subnet Group" \
@@ -315,7 +313,7 @@ I create the CafeDBInstance that is shown in the final architecture. Using the A
   These options specify the creation of a MariaDB database instance that is deployed in the same Availability Zone as the café instance. The MariaDB database instance also uses the DB subnet group that I built in the previous step.
 
 
-  * **Step 18:** In the terminal window, run the following command. In the command, replace <CafeInstance Availability Zone> with the **CafeInstanceAZ** value that you recorded at the beginning of the lab, and replace <CafeDatabaseSG Group ID> with the value that you recorded in a previous step.
+  * **Step 19:** In the terminal window, run the following command. In the command, replace <CafeInstance Availability Zone> with the **CafeInstanceAZ** value that you recorded at the beginning of the lab, and replace <CafeDatabaseSG Group ID> with the value that you recorded in a previous step.
 
         aws rds create-db-instance \
         --db-instance-identifier CafeDBInstance \
@@ -350,7 +348,7 @@ I create the CafeDBInstance that is shown in the final architecture. Using the A
   The command immediately returns some information about the database, but the database instance might take up to 10 minutes to become available.
 
 
-* **Step 19:** To check the status of the database, run the following command:
+* **Step 20:** To check the status of the database, run the following command:
    I monitor the status of the database instance until it shows a status of **available**.
 
 
@@ -380,7 +378,7 @@ Test the data migration.
 Note that you perform these steps from the command line after connecting to the CafeInstance. This instance can communicate with the Amazon RDS instance by using the MySQL protocol because you associated the CafeDatabaseSG security group with the Amazon RDS instance.
 
 
-* **Step 20:** Connect to the **CafeInstance** by using EC2 Instance Connect. Follow the instructions that you used earlier to connect to the CLI Host instance.
+* **Step 21:** Connect to the **CafeInstance** by using EC2 Instance Connect. Follow the instructions that you used earlier to connect to the CLI Host instance.
   
  I use the mysqldump utility to create a backup of the local cafe_db database. This utility program is part of the MySQL database product, and it is available for me to use. 
 
@@ -395,7 +393,7 @@ Note that you perform these steps from the command line after connecting to the 
 
   * On the **EC2 Instance Connect** tab, choose **Connect**.
 
-* **Step 21:** In the terminal window, run the following command:
+* **Step 22:** In the terminal window, run the following command:
 
         mysqldump --user=root --password='Re:Start!9' \
         --databases cafe_db --add-drop-database > cafedb-backup.sql
@@ -405,7 +403,7 @@ Note that you perform these steps from the command line after connecting to the 
 
 This command generates SQL statements in a file named cafedb-backup.sql, which can be run to reproduce the schema and data of the original cafe_db database.
 
-* **Step 22:** To review the contents of the backup file, open the cafedb-backup.sql file in my preferred text editor. Alternatively, if I want to view it using the Linux less command, enter the following command in the terminal window:
+* **Step 23:** To review the contents of the backup file, open the cafedb-backup.sql file in my preferred text editor. Alternatively, if I want to view it using the Linux less command, enter the following command in the terminal window:
 
                   less cafedb-backup.sql
 
@@ -416,7 +414,7 @@ This command generates SQL statements in a file named cafedb-backup.sql, which c
 
 I restore the backup to the Amazon RDS database by using the mysql command. I must specify the endpoint address of the Amazon RDS instance in the command. 
 
-* **Step 23:** In the terminal window, enter the following command. In the command, replace <RDS Instance Database Endpoint Address> with the value that I recorded earlier.
+* **Step 24:** In the terminal window, enter the following command. In the command, replace <RDS Instance Database Endpoint Address> with the value that I recorded earlier.
 
            mysql --user=root --password='Re:Start!9' \
            --host=<RDS Instance Database Endpoint Address> \
@@ -435,13 +433,13 @@ This command creates a MySQL connection to the Amazon RDS instance and runs the 
 
 Finally, I verify that the cafe_db was successfully created and populated in the Amazon RDS instance. I open an interactive MySQL session to the instance and retrieve the data in the product table of the cafe_db database. 
 
-* **Step 24:** In the SSH window, enter the following command. In the command, replace <RDS Instance Database Endpoint Address> with the value that you recorded earlier.
+* **Step 25:** In the SSH window, enter the following command. In the command, replace <RDS Instance Database Endpoint Address> with the value that you recorded earlier.
   
 RDS Instance Database Endpoint Address: **cafedbinstance.c9ycyqekqles.us-west-2.rds.amazonaws.com** 
 
  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a2d6c9e5-958b-4753-9198-242c64a6e4ea)
 
- * **Step 25:** Next, enter the SQL statement to retrieve the data in the product table:
+ * **Step 26:** Next, enter the SQL statement to retrieve the data in the product table:
 
            select * from product;
 
@@ -450,7 +448,7 @@ RDS Instance Database Endpoint Address: **cafedbinstance.c9ycyqekqles.us-west-2.
 
 I can now exit the interactive SQL session. 
 
- * **Step 26:** In the terminal window, enter the following command:
+ * **Step 27:** In the terminal window, enter the following command:
 
          exit
 
@@ -458,28 +456,28 @@ I can now exit the interactive SQL session.
 
 I ready to configure the café website to use the Amazon RDS instance. This step is straightforward because the designer of the application followed best practices and externalized the database connection information as parameters in Parameter Store, a capability of AWS Systems Manager. In this task, I change the database URL parameter of the café application to point to the endpoint address of the RDS instance.
 
-* **Step 27:** On the **AWS Management Console**, in the **Search** bar, enter and choose `Systems Manager` to go to **AWS Systems Manager**.
+* **Step 28:** On the **AWS Management Console**, in the **Search** bar, enter and choose `Systems Manager` to go to **AWS Systems Manager**.
 
-* **Step 28:** In the left navigation pane, choose **Parameter Store**.
+* **Step 29:** In the left navigation pane, choose **Parameter Store**.
 * 
-* **Step 29:** From the **My parameters list**, choose **/cafe/dbUrl**. The current value of the parameter is displayed, along with its description and other metadata information.
+* **Step 30:** From the **My parameters list**, choose **/cafe/dbUrl**. The current value of the parameter is displayed, along with its description and other metadata information.
 
-* **Step 30:** Choose **Edit**.
+* **Step 31:** Choose **Edit**.
   
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/9dcdfa1a-c97a-4406-8764-5031dea1c68c)
 
-* **Step 31:** In the **Parameter details** page, replace the text in the **Value** box with the **RDS Instance Database Endpoint Address** value that you recorded earlier.
+* **Step 32:** In the **Parameter details** page, replace the text in the **Value** box with the **RDS Instance Database Endpoint Address** value that you recorded earlier.
   
 In parameter details only change **value box** = cafedbinstance.c9ycyqekqles.us-west-2.rds.amazonaws.com rest of thing are default.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/369d02ab-43d1-4841-94c0-ea1fdede334d)
 
- * **Step 32:** Choose **Save changes**.
+ * **Step 33:** Choose **Save changes**.
 The dbUrl parameter now references the RDS DB instance instead of the local database.
 
 I test the website to confirm that it is able to access the new database correctly.
 
-* **Step 33:** In a new browser window, paste the URL for **CafeInstanceURL** that I copied to a text editor at the beginning of the lab.
+* **Step 34:** In a new browser window, paste the URL for **CafeInstanceURL** that I copied to a text editor at the beginning of the lab.
   
    **CafeInstanceURL :52.38.0.14/cafe**
 
@@ -488,7 +486,7 @@ I test the website to confirm that it is able to access the new database correct
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0884c2bd-cb03-4330-9fad-d29cf7b84a3a)
 
 
-* **Step 34:** Choose the Order History tab. and observe the number of orders in the database. Compare this number with the number of orders that I recorded before the database migration. Both numbers should be the same.
+* **Step 35:** Choose the Order History tab. and observe the number of orders in the database. Compare this number with the number of orders that I recorded before the database migration. Both numbers should be the same.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f10bf04d-6600-4d5a-8328-c95c419c5bfc)
 
@@ -496,17 +494,17 @@ I test the website to confirm that it is able to access the new database correct
 
 One of the benefits of using Amazon RDS is the ability to monitor the performance of a database instance. Amazon RDS automatically sends metrics to CloudWatch every minute for each active database. In this task, I identify some of these performance metrics and learn how to monitor a metric in the Amazon RDS console.
 
-* **Step 35:** On the **AWS Management Console**, in the **Search** bar, enter and choose RDS to open the **RDS Management Console**.
+* **Step 36:** On the **AWS Management Console**, in the **Search** bar, enter and choose RDS to open the **RDS Management Console**.
 
-* **Step 36:** In the left navigation pane, choose **Databases**.
+* **Step 37:** In the left navigation pane, choose **Databases**.
 
-* **Step 37:**  From the **Databases** list, choose **cafedbinstance**. Detailed information about the database is displayed.
+* **Step 38:**  From the **Databases** list, choose **cafedbinstance**. Detailed information about the database is displayed.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/55a33ed0-fec9-4ad0-b997-28baae6bf54d)
 
 
 
-* **Step 37:** Choose the **Monitoring** tab. By default, this tab displays a number of key database instance metrics that are available from CloudWatch. Each metric includes a graph that shows the metric as it is monitored over a specific time span.
+* **Step 39:** Choose the **Monitoring** tab. By default, this tab displays a number of key database instance metrics that are available from CloudWatch. Each metric includes a graph that shows the metric as it is monitored over a specific time span.
 
 The list of displayed metrics includes the following:
 
@@ -528,7 +526,7 @@ I monitor the **DatabaseConnections** metric as I create a connection to the dat
 
 
 
-* **Step 38:** To open an interactive SQL session to the RDS cafe_db instance, in the CafeInstance terminal window, enter the following command. In the command, replace <RDS Instance Database Endpoint Address> with the value that you recorded earlier.
+* **Step 40:** To open an interactive SQL session to the RDS cafe_db instance, in the CafeInstance terminal window, enter the following command. In the command, replace <RDS Instance Database Endpoint Address> with the value that you recorded earlier.
 
               mysql --user=root --password='Re:Start!9' \
               --host=<RDS Instance Database Endpoint Address> \
@@ -543,24 +541,24 @@ I monitor the **DatabaseConnections** metric as I create a connection to the dat
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/68cb2fc8-b2e5-4868-abb2-0168b1a9703f)
 
- * **Step 39:** To retrieve the data in the product table, enter the following SQL statement:
+ * **Step 41:** To retrieve the data in the product table, enter the following SQL statement:
 
                    select * from product;
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d3d01ec5-af02-4257-b65d-914ca00caddf)
 
 
- * **Step 40:** In the Amazon RDS console, choose the **DatabaseConnections** graph to open it in a larger view. The graph shows a line that indicates that **1** connection is in use. This connection was established by the interactive SQL session from the CafeInstance.
+ * **Step 42:** In the Amazon RDS console, choose the **DatabaseConnections** graph to open it in a larger view. The graph shows a line that indicates that **1** connection is in use. This connection was established by the interactive SQL session from the CafeInstance.
 
 **Tip:** If the graph does not show any connections in use, wait 1 minute (which is the sampling interval), and then choose Refresh. It should now show one open connection.
 
 
- * **Step 41:** To close the connection from the interactive SQL session, in the CafeInstance terminal window, enter the following command:
+ * **Step 43:** To close the connection from the interactive SQL session, in the CafeInstance terminal window, enter the following command:
 
                 exit
 
    
- * **Step 42:** Wait 1 minute, and then in the DatabaseConnections graph in Amazon RDS console, choose Refresh. The graph now shows that the number of connections in use is 0.
+ * **Step 44:** Wait 1 minute, and then in the DatabaseConnections graph in Amazon RDS console, choose Refresh. The graph now shows that the number of connections in use is 0.
 
 
 ## Conclusion
