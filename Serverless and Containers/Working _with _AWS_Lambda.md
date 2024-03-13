@@ -225,19 +225,21 @@ Read the comments included in the code to gain an understanding of its logic flo
 
 The final step before I can test the function is to configure its network settings. As the architecture diagram at the start of this lab shows, this function requires network access to the café database, which runs in an EC2 LAMP instance. Therefore, I need to specify the instance’s VPC, subnet, and security group information in the function’s configuration.
 
-* **Step 34:** Choose the Configuration tab, and then choose VPC.
+* **Step 34:** Choose the **Configuration** tab, and then choose **VPC**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/818a484c-d30f-4b4d-9bba-9727ad2fc858)
 
-* **Step 35:** Choose Edit, and configure the following options:
+* **Step 35:** Choose **Edit**, and configure the following options:
 
-    * VPC: Choose the option with Cafe VPC as the Name.
+    * **VPC:** Choose the option with **Cafe VPC** as the **Name**.
 
-    * Subnets: Choose the option with Cafe Public Subnet 1 as the Name.
+    * **Subnets:** Choose the option with **Cafe Public Subnet 1** as the **Name**.
 
-     Tip: You can ignore the warning (if any) that recommends choosing at least two subnets to run in high availability mode because it is not applicable to the function.
+ **Tip:** You can ignore the warning (if any) that recommends choosing at least two subnets to run in high availability mode because it is not applicable to the function.
+ 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/e029223b-81d5-4753-a449-151f44719bdd)
 
-    * Security groups: Choose the option with CafeSecurityGroup as the Name.
+   * **Security groups:** Choose the option with **CafeSecurityGroup** as the **Name**.
 
 Notice that the security group’s inbound and outbound rules are automatically displayed following the field.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/296bf039-a010-4616-9fe4-b74135a0854b)
