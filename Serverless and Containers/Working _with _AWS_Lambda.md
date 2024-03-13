@@ -20,6 +20,7 @@ I analyze the IAM roles and the permissions that they grant to the salesAnalysis
 ## Observing the salesAnalysisReport IAM role settings
 
 * **Step 1:** In the AWS Management Console, choose **Services > Security, Identity, & Compliance > IAM**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/817ec034-7264-4081-ba0c-745c4c5c2798)
 
 * **Step 2:** In the navigation pane, choose **Roles**.
@@ -27,46 +28,58 @@ I analyze the IAM roles and the permissions that they grant to the salesAnalysis
 * **Step 3:** In the search box, enter `sales`
 
 * **Step 4:** From the filtered results, choose the **salesAnalysisReportRole** hyperlink.
+  
   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f16f59a9-f814-4bb9-aa35-a4416343e11b)
 
 * **Step 5:** Choose the **Trust relationships** tab, and notice that lambda.amazonaws.com is listed as a trusted entity, which means that the Lambda service can use this role.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/51942946-8843-4042-b6d3-90f323e8d710)
 
 * **Step 6:** Choose the **Permissions** tab, and notice the four policies assigned to this role. To expand each role and analyze the permissions that each policy grants, choose the **+** icon next to each role:
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a8b42bb5-7756-4841-872b-805a2244c6db)
 
-    * **AmazonSNSFullAccess** provides full access to Amazon SNS resources.
+  * **AmazonSNSFullAccess** provides full access to Amazon SNS resources.
+    
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/fe4c7579-70e4-45db-aa17-4844869b1fc2)
 
-    * **AmazonSSMReadOnlyAccess** provides read-only access to Systems Manager resources.
+  * **AmazonSSMReadOnlyAccess** provides read-only access to Systems Manager resources.
+    
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/055141f3-d156-4cf7-bdda-6613272be231)
 
-    * **AWSLambdaBasicRunRole** provides write permissions to CloudWatch logs (which are required by every Lambda function).
+  * **AWSLambdaBasicRunRole** provides write permissions to CloudWatch logs (which are required by every Lambda function).
+    
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/4438311a-96e2-4797-9ffc-52241570fd8c)
 
-   * **AWSLambdaRole**  gives a Lambda function the ability to invoke another Lambda function. 
+   * **AWSLambdaRole**  gives a Lambda function the ability to invoke another Lambda function.
+     
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6610b7d2-c190-4d61-b7f6-7fdcd8eafff7)
 
 The salesAnalysisReport Lambda function that you create later in this lab uses the salesAnalysisReportRole role.
 
 
 ## Observing the salesAnalysisReportDERole IAM role settings
+
 * **Step 7:** Choose **Roles** again.
 
 * **Step 8:** In the search box, enter sales
 
 * **Step 9:** From the filtered results, choose the **salesAnalysisReportDERole** hyperlink.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/94d27166-d00d-4e9e-a162-d4120fd17022)
 
 * **Step 10:** Choose the Trust relationships tab, and notice that lambda.amazonaws.com is listed as a trusted entity.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ab34bd3f-c45d-485e-9f74-43b4906e2ad7)
 
 * **Step 11:** Choose the Permissions tab, and notice the permissions granted to this role:
 
    * **AWSLambdaBasicRunRole** provides write permissions to CloudWatch logs.
+     
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/4f9cdc18-b374-445d-bf13-f411fe8bf2af)
 
-     * **AWSLambdaVPCAccessRunRole** provides permissions to manage elastic network interfaces to connect a function to a virtual private cloud (VPC).
+  * **AWSLambdaVPCAccessRunRole** provides permissions to manage elastic network interfaces to connect a function to a virtual private cloud (VPC).
+    
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ac981bd1-7399-4444-a98f-ac4595860353)
 
 The salesAnalysisReportDataExtractor Lambda function that you create next uses the salesAnalysisReportDERole role.
