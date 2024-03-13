@@ -62,17 +62,17 @@ The salesAnalysisReport Lambda function that you create later in this lab uses t
 
 * **Step 7:** Choose **Roles** again.
 
-* **Step 8:** In the search box, enter sales
+* **Step 8:** In the search box, enter `sales`
 
 * **Step 9:** From the filtered results, choose the **salesAnalysisReportDERole** hyperlink.
   
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/94d27166-d00d-4e9e-a162-d4120fd17022)
 
-* **Step 10:** Choose the Trust relationships tab, and notice that lambda.amazonaws.com is listed as a trusted entity.
+* **Step 10:** Choose the **Trust relationships** tab, and notice that lambda.amazonaws.com is listed as a trusted entity.
   
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ab34bd3f-c45d-485e-9f74-43b4906e2ad7)
 
-* **Step 11:** Choose the Permissions tab, and notice the permissions granted to this role:
+* **Step 11:** Choose the **Permissions** tab, and notice the permissions granted to this role:
 
    * **AWSLambdaBasicRunRole** provides write permissions to CloudWatch logs.
      
@@ -103,32 +103,37 @@ Start by downloading two required files.
 I create a Lambda layer named pymysqlLibrary and upload the client library into it so that it can be used by any function that requires it. Lambda layers provide a flexible mechanism to reuse code between functions so that the code does not have to be included in each function’s deployment package.
 
 * **Step 13:** In the AWS Management Console, choose **Services > Compute > Lambda**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a83641a0-f197-4df1-926e-177cc7d07108)
 
 **Tip:** If the navigation panel is closed, choose the collapsed menu icon (three horizontal lines) to open the **AWS Lambda** panel.
 
 * **Step 14:** Choose **Layers**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/33c8de92-f264-4f09-a61a-86b502a09ea3)
 
 * **Step 15:** Choose **Create layer**.
 
 * **Step 16:** Configure the following layer settings:
 
-   * For Name, enter pymysqlLibrary
+   * For **Name**, enter `pymysqlLibrary`
 
-   * For Description, enter PyMySQL library modules
+   * For **Description**, enter `PyMySQL library modules`
 
-   * Select Upload a .zip file. To upload the pymysql-v3.zip file, choose Upload, navigate to the folder where you downloaded the pymysql-v3.zip file, and open it.
+   * Select **Upload a .zip file**. To upload the pymysql-v3.zip file, choose **Upload**, navigate to the folder where you downloaded the pymysql-v3.zip file, and open it.
 
-   * For Compatible runtimes, choose Python 3.9.
+   * For **Compatible runtimes**, choose **Python 3.9**.
+     
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f7083171-b4a5-40a2-9c52-784f1f59f629)
 
-* **Step 17:**     Choose Create.
+* **Step 17:** Choose **Create**.
 
 The message "Successfully created layer pymysqlLibrary version 1" is displayed.
+
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/e8a5eaf4-c577-4202-b4ea-4371c2cbbc2e)
 
-Tip: The Lambda layers feature requires that the .zip file containing the code or library conform to a specific folder structure. The pymysqlLibary.zip file used in this lab was packaged using the following folder structure:
+**Tip:** The Lambda layers feature requires that the .zip file containing the code or library conform to a specific folder structure. The pymysqlLibary.zip file used in this lab was packaged using the following folder structure:
+
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d4c6720a-1dbe-4bb2-93d1-
 b68d04611a52)
 
