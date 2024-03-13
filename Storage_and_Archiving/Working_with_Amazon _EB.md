@@ -16,16 +16,16 @@ I create and attach an EBS volume to a new EC2 instance.
   An EC2 instance named **Lab** has already been launched for my lab.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ccb3e101-2fd2-41bb-93f5-955ba0c1428c)
 
-* **Step 1:**  Note the **Availability Zone** for the **Lab** instance. It looks similar to the following: **us-west-2a**
+* **Step 3:**  Note the **Availability Zone** for the **Lab** instance. It looks similar to the following: **us-west-2a**
 
 **Tip:** I might have to scroll to the right to see the **Availability Zone** column.
 
-* * **Step 1:** In the left navigation pane, for **Elastic Block Store**, choose **Volumes**.
+* * **Step 4:** In the left navigation pane, for **Elastic Block Store**, choose **Volumes**.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7312b9c2-80a8-4b30-b186-c4503ccfb29a)
 
 I see an existing (8 GiB) volume that the EC2 instance is using.
 
- * **Step 1:** Choose **Create volume**, and configure the following options:
+ * **Step 5:** Choose **Create volume**, and configure the following options:
  *  **Volume type**: Choose **General Purpose SSD (gp2)**.
 
 * **Size (GiB)**: Enter 1. 
@@ -33,13 +33,13 @@ I see an existing (8 GiB) volume that the EC2 instance is using.
 
 * **Availability Zone:** Choose the same Availability Zone as your EC2 instance (which is us-west-2a in this case).
   
- * **Step 1:** In the **Tags -optional** section, choose **Add tag**, and configure the following options:
+ * **Step 6:** In the **Tags -optional** section, choose **Add tag**, and configure the following options:
 
    * **Key:** Enter `Name`.
 
    * **Value:** Enter `My Volume`.
 
-   * **Step 1:**  Choose **Create volume**. 
+   * **Step 7:**  Choose **Create volume**. 
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/45bb9c5c-8a8d-49ca-9be2-a5936918f438)
 
@@ -50,17 +50,17 @@ I see an existing (8 GiB) volume that the EC2 instance is using.
 ## Attaching the volume to an EC2 instance
 I attach my new volume to an EC2 instance.
 
-* **Step 1:** Select **My Volume**.
+* **Step 8:** Select **My Volume**.
 
-* **Step 1:** From the **Actions** menu, choose **Attach volume**.
+* **Step 9:** From the **Actions** menu, choose **Attach volume**.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7576af3f-fc4b-4d6c-93eb-1f5573d2f73d)
 
-* **Step 1:** From the Instance dropdown list, choose the **Lab** instance.
+* **Step 10:** From the Instance dropdown list, choose the **Lab** instance.
 
 The **Device name** field is set to **/dev/sdf**. Commands that you run later in this lab include this device identifier. 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a626b420-46b0-4da7-9d66-c5354ba2c2f8)
 
-* **Step 1:** Choose **Attach volume**.
+* **Step 11:** Choose **Attach volume**.
 
 The **Volume state** of your new volume is now In-use.
 
@@ -69,16 +69,16 @@ The **Volume state** of your new volume is now In-use.
 ## Connecting to the Lab EC2 instance
 I  use EC2 Instance Connect to connect to the Lab EC2 instance. 
 
- * **Step 1:** On the **AWS Management Console**, in the **Search** bar, enter and choose EC2 to open the **EC2 Management Console**.
+ * **Step 12:** On the **AWS Management Console**, in the **Search** bar, enter and choose EC2 to open the **EC2 Management Console**.
 
-* **Step 1:** In the navigation pane, choose **Instances**.
+* **Step 13:** In the navigation pane, choose **Instances**.
 
-* **Step 1:** From the list of instances, select the **Lab** instance.
+* **Step 14:** From the list of instances, select the **Lab** instance.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d6f82bcb-b13a-482c-86c8-346c137b7bef)
 
-* **Step 1:** Choose **Connect**.
+* **Step 15:** Choose **Connect**.
 
-* **Step 1:** On the **EC2 Instance Connect** tab, choose **Connect**.
+* **Step 16:** On the **EC2 Instance Connect** tab, choose **Connect**.
 
 This option opens a new browser tab with the **EC2 Instance Connect** terminal window.
 
@@ -91,7 +91,7 @@ You use this terminal window to complete the tasks throughout the lab. If the te
 
 I add the new volume to a Linux instance as an ext3 file system under the /mnt/data-store mount point.
 
-* **Step 1:** To view the storage that is available on your instance, in the EC2 Instance Connect terminal, run the following command:
+* **Step 17:** To view the storage that is available on your instance, in the EC2 Instance Connect terminal, run the following command:
 
            df -h
 
@@ -99,7 +99,7 @@ I add the new volume to a Linux instance as an ext3 file system under the /mnt/d
 
   These results show the original 8 GB disk volume. Your new volume is not yet shown.
 
-* **Step 1:** To create an ext3 file system on the new volume, run the following command:
+* **Step 18:** To create an ext3 file system on the new volume, run the following command:
 
      sudo mkfs -t ext3 /dev/sdf
 
@@ -107,13 +107,13 @@ I add the new volume to a Linux instance as an ext3 file system under the /mnt/d
 
 
  
-* **Step 1:** To create a directory to mount the new storage volume, run the following command:
+* **Step 19:** To create a directory to mount the new storage volume, run the following command:
 
          sudo mkdir /mnt/data-store
 
 
 
-* **Step 1:** To mount the new volume, run the following command:
+* **Step 20:** To mount the new volume, run the following command:
   
       sudo mount /dev/sdf /mnt/data-store
        echo "/dev/sdf   /mnt/data-store ext3 defaults,noatime 1 2" | sudo tee -a /etc/fstab
@@ -123,24 +123,24 @@ I add the new volume to a Linux instance as an ext3 file system under the /mnt/d
 
  The last line in this command ensures that the volume is mounted even after the instance is restarted.
 
- * **Step 1:** To view the configuration file to see the setting on the last line, run the following command:
+ * **Step 21:** To view the configuration file to see the setting on the last line, run the following command:
 
 
         cat /etc/fstab
    
    ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/1de977dd-d9e6-41e2-a2ea-0d1abaf062fe)
 
-  * **Step 1:**  To view the available storage again, run the following command:
+  * **Step 22:**  To view the available storage again, run the following command:
 
       df -h
 
     ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a518083f-4480-45cd-80ea-d1d73f441d4f)
 
- * **Step 1:** To create a file and add some text on the mounted volume, run the following command:
+ * **Step 23:** To create a file and add some text on the mounted volume, run the following command:
 
       sudo sh -c "echo some text has been written > /mnt/data-store/file.txt"
 
-  * **Step 1:**  To verify that the text has been written to your volume, run the following command:
+  * **Step 24:**  To verify that the text has been written to your volume, run the following command:
 
 
             cat /mnt/data-store/file.txt
@@ -153,34 +153,34 @@ I  create a snapshot of your EBS volume.
 Amazon EBS snapshots are stored in Amazon Simple Storage Service (Amazon S3) for durability. New EBS volumes can be created out of snapshots for cloning or restoring backups. Amazon EBS snapshots can also be shared among Amazon Web Services (AWS) accounts or copied over AWS Regions.
 
 
- * **Step 1:** On the **EC2 Management Console**, choose **Volumes**, and select **My Volume**.
+ * **Step 25:** On the **EC2 Management Console**, choose **Volumes**, and select **My Volume**.
 
-  * **Step 1:** From the **Actions** menu, choose **Create snapshot**.
+  * **Step 26:** From the **Actions** menu, choose **Create snapshot**.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a2665cd1-c827-49a1-afe5-314b2a27cf44)
 
 
- * **Step 1:** In the **Tags** section, choose **Add tag**, and then configure the following options:
+ * **Step 27:** In the **Tags** section, choose **Add tag**, and then configure the following options:
 
 Key: Enter `Name`.
 
 Value: Enter `My Snapshot`.
 
-* **Step 1:** Choose **Create snapshot**.
+* **Step 28:** Choose **Create snapshot**.
  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/09277b41-d52c-45ab-8f73-bbbd65939d3c)
 
 
-* **Step 1:** In the left navigation pane, choose **Snapshots**.
+* **Step 29:** In the left navigation pane, choose **Snapshots**.
   
    The **Snapshot status** of your snapshot is Pending. After completion, the status changes to Completed. Only used storage blocks are copied to snapshots, so empty blocks do not use any snapshot storage space.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f708da56-2952-496b-90b2-f2f4554d1be9)
 
- * **Step 1:** In your EC2 Instance Connect terminal window, to delete the file that you created on your volume, run the following command:
+ * **Step 30:** In your EC2 Instance Connect terminal window, to delete the file that you created on your volume, run the following command:
 
     sudo rm /mnt/data-store/file.txt
 
- * **Step 1:** To verify that the file has been deleted, run the following command:
+ * **Step 31:** To verify that the file has been deleted, run the following command:
 
 
     ls /mnt/data-store/file.txt
@@ -195,18 +195,18 @@ I need to retrieve data stored in a snapshot, I can restore the snapshot to a ne
 
 ### Creating a volume by using the snapshot
 
-* **Step 1:** On the **EC2 Management Console**, select **My Snapshot**.
+* **Step 32:** On the **EC2 Management Console**, select **My Snapshot**.
 
   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/96d7d3d3-7752-49d0-abb0-226e6d6a468c)
 
 
-* **Step 1:** From the **Actions** menu, choose **Create volume from snapshot**.
+* **Step 33:** From the **Actions** menu, choose **Create volume from snapshot**.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/39a06520-7471-4de1-b7a6-29dbce2962ea)
 
-* **Step 1:** For **Availability Zone**, choose the same Availability Zone that you used earlier.
+* **Step 34:** For **Availability Zone**, choose the same Availability Zone that you used earlier.
   
- * **Step 1:** In the **Tags - optional** section, choose **Add tag**, and then configure the following options:
+ * **Step 35:** In the **Tags - optional** section, choose **Add tag**, and then configure the following options:
 
    * **Key**: Enter `Name`.
 
@@ -214,9 +214,9 @@ I need to retrieve data stored in a snapshot, I can restore the snapshot to a ne
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c7b61d6a-92f2-4b71-b206-52027bb08782)
 
-* **Step 1:** Choose **Create volume**.
+* **Step 36:** Choose **Create volume**.
 
- * **Step 1:** To see my new volume, in the left navigation, choose **Volumes**.
+ * **Step 37:** To see my new volume, in the left navigation, choose **Volumes**.
 
 The **Volume status** of my new volume is Available.
 
@@ -226,19 +226,19 @@ When restoring a snapshot to a new volume, I can also modify the configuration, 
 
 ## Attaching the restored volume to the EC2 instance
 
-* **Step 1:** Select **Restored Volume**.
+* **Step 38:** Select **Restored Volume**.
   
- * **Step 1:** From the **Actions** menu, choose **Attach volume**.
+ * **Step 39:** From the **Actions** menu, choose **Attach volume**.
    
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/85eba17a-0fc8-471f-a87f-8aa3e89cf4d9)
 
-* **Step 1:**  From the **Instance** dropdown list, choose the **Lab** instance.
+* **Step 40:**  From the **Instance** dropdown list, choose the **Lab** instance.
 
    The **Device name** field is set to **/dev/sdg**. You use this device identifier in a later task.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/e2587c38-5e20-405f-85f0-86ff83e7a2b1)
 
-* **Step 1:** Choose **Attach volume**.
+* **Step 41:** Choose **Attach volume**.
   
 The **Volume status** of your volume is now In-use.
 
@@ -248,7 +248,7 @@ The **Volume status** of your volume is now In-use.
 
 ## Mounting the restored volume
 
-* **Step 1:** To create a directory for mounting the new storage volume, in the EC2 Instance Connect terminal, run the following command:
+* **Step 42:** To create a directory for mounting the new storage volume, in the EC2 Instance Connect terminal, run the following command:
 
        sudo mkdir /mnt/data-store2
 
