@@ -134,8 +134,7 @@ The message "Successfully created layer pymysqlLibrary version 1" is displayed.
 
 **Tip:** The Lambda layers feature requires that the .zip file containing the code or library conform to a specific folder structure. The pymysqlLibary.zip file used in this lab was packaged using the following folder structure:
 
-![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d4c6720a-1dbe-4bb2-93d1-
-b68d04611a52)
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d4c6720a-1dbe-4bb2-93d1-b68d04611a52)
 
 ## Creating a data extractor Lambda function
 
