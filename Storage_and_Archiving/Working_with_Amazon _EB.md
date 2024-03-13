@@ -204,4 +204,78 @@ I need to retrieve data stored in a snapshot, I can restore the snapshot to a ne
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/39a06520-7471-4de1-b7a6-29dbce2962ea)
 
+* **Step 1:** For **Availability Zone**, choose the same Availability Zone that you used earlier.
+  
+ * **Step 1:** In the **Tags - optional** section, choose **Add tag**, and then configure the following options:
+
+   * **Key**: Enter `Name`.
+
+   * **Value**: Enter `Restored Volume`.
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c7b61d6a-92f2-4b71-b206-52027bb08782)
+
+* **Step 1:** Choose **Create volume**.
+
+ * **Step 1:** To see my new volume, in the left navigation, choose **Volumes**.
+
+The **Volume status** of my new volume is Available.
+
+When restoring a snapshot to a new volume, I can also modify the configuration, such as changing the volume type, size, or Availability Zone.
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3d3f49c0-39dd-4bef-86fa-de840ae442fd)
+
+## Attaching the restored volume to the EC2 instance
+
+* **Step 1:** Select **Restored Volume**.
+  
+ * **Step 1:** From the **Actions** menu, choose **Attach volume**.
+   
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/85eba17a-0fc8-471f-a87f-8aa3e89cf4d9)
+
+* **Step 1:**  From the **Instance** dropdown list, choose the **Lab** instance.
+
+   The **Device name** field is set to **/dev/sdg**. You use this device identifier in a later task.
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/e2587c38-5e20-405f-85f0-86ff83e7a2b1)
+* **Step 1:** Choose **Attach volume**.
+The **Volume status** of your volume is now In-use.
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/fd404f5b-6ac2-4014-b6aa-1bed978eb8a3)
+
+
+
+## Mounting the restored volume
+
+* **Step 1:** To create a directory for mounting the new storage volume, in the EC2 Instance Connect terminal, run the following command:
+
+     sudo mkdir /mnt/data-store2
+
+  To mount the new volume, run the following command:
+
+      sudo mount /dev/sdg /mnt/data-store2
+
+
+  To verify that the volume that you mounted has the file that you created earlier, run the following command:
+
+         ls /mnt/data-store2/file.txt
+
+  I see the file.txt file.
+
+  ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/fce23a66-a5d4-4ffb-b006-d13c14f4853e)
+
+
+  ## Conclusion
+
+
+ I have successfully done the following:
+
+* Created an EBS volume
+
+* Attached and mounted an EBS volume to an EC2 instance
+
+* Created a snapshot of an EBS volume
+
+* Created an EBS volume from a snapshot
+
+
 
