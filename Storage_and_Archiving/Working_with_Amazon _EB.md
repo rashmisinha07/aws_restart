@@ -20,26 +20,28 @@ I create and attach an EBS volume to a new EC2 instance.
 
 **Tip:** I might have to scroll to the right to see the **Availability Zone** column.
 
-* * **Step 4:** In the left navigation pane, for **Elastic Block Store**, choose **Volumes**.
+*  **Step 4:** In the left navigation pane, for **Elastic Block Store**, choose **Volumes**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7312b9c2-80a8-4b30-b186-c4503ccfb29a)
 
 I see an existing (8 GiB) volume that the EC2 instance is using.
 
  * **Step 5:** Choose **Create volume**, and configure the following options:
- *  **Volume type**: Choose **General Purpose SSD (gp2)**.
+   
+   *  **Volume type**: Choose **General Purpose SSD (gp2)**.
 
-* **Size (GiB)**: Enter 1. 
-**Note:** You might be restricted from creating large volumes.
+   * **Size (GiB)**: Enter 1. 
+  **Note:** You might be restricted from creating large volumes.
 
-* **Availability Zone:** Choose the same Availability Zone as your EC2 instance (which is us-west-2a in this case).
+   * **Availability Zone:** Choose the same Availability Zone as your EC2 instance (which is us-west-2a in this case).
   
  * **Step 6:** In the **Tags -optional** section, choose **Add tag**, and configure the following options:
 
-   * **Key:** Enter `Name`.
+    * **Key:** Enter `Name`.
 
-   * **Value:** Enter `My Volume`.
+    * **Value:** Enter `My Volume`.
 
-   * **Step 7:**  Choose **Create volume**. 
+* **Step 7:**  Choose **Create volume**. 
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/45bb9c5c-8a8d-49ca-9be2-a5936918f438)
 
@@ -53,6 +55,7 @@ I attach my new volume to an EC2 instance.
 * **Step 8:** Select **My Volume**.
 
 * **Step 9:** From the **Actions** menu, choose **Attach volume**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7576af3f-fc4b-4d6c-93eb-1f5573d2f73d)
 
 * **Step 10:** From the Instance dropdown list, choose the **Lab** instance.
@@ -101,7 +104,7 @@ I add the new volume to a Linux instance as an ext3 file system under the /mnt/d
 
 * **Step 18:** To create an ext3 file system on the new volume, run the following command:
 
-     sudo mkfs -t ext3 /dev/sdf
+         sudo mkfs -t ext3 /dev/sdf
 
   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3c9f1a97-4987-4ea8-a136-91be2ef6bf5f)
 
@@ -138,7 +141,7 @@ I add the new volume to a Linux instance as an ext3 file system under the /mnt/d
 
  * **Step 23:** To create a file and add some text on the mounted volume, run the following command:
 
-      sudo sh -c "echo some text has been written > /mnt/data-store/file.txt"
+        sudo sh -c "echo some text has been written > /mnt/data-store/file.txt"
 
   * **Step 24:**  To verify that the text has been written to your volume, run the following command:
 
@@ -173,10 +176,11 @@ Value: Enter `My Snapshot`.
 
 * **Step 29:** In the left navigation pane, choose **Snapshots**.
   
-   The **Snapshot status** of your snapshot is Pending. After completion, the status changes to Completed. Only used storage blocks are copied to snapshots, so empty blocks do not use any snapshot storage space.
+   The **Snapshot status** of my snapshot is Pending. After completion, the status changes to Completed. Only used storage blocks are copied to snapshots, so empty blocks do not use any snapshot storage space.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f708da56-2952-496b-90b2-f2f4554d1be9)
 
- * **Step 30:** In your EC2 Instance Connect terminal window, to delete the file that you created on your volume, run the following command:
+ * **Step 30:** In  EC2 Instance Connect terminal window, to delete the file that I created on my volume, run the following command:
 
     sudo rm /mnt/data-store/file.txt
 
