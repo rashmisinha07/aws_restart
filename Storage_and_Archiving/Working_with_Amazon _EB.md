@@ -199,3 +199,9 @@ I need to retrieve data stored in a snapshot, I can restore the snapshot to a ne
 
   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/96d7d3d3-7752-49d0-abb0-226e6d6a468c)
 
+
+* **Step 1:** From the **Actions** menu, choose **Create volume from snapshot**.
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/39a06520-7471-4de1-b7a6-29dbce2962ea)
+
+
