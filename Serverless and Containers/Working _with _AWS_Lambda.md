@@ -51,17 +51,17 @@ The salesAnalysisReport Lambda function that you create later in this lab uses t
 
 
 ## Observing the salesAnalysisReportDERole IAM role settings
-* **Step 6:** Choose **Roles** again.
+* **Step 7:** Choose **Roles** again.
 
-* **Step 7:** In the search box, enter sales
+* **Step 8:** In the search box, enter sales
 
-* **Step 8:** From the filtered results, choose the **salesAnalysisReportDERole** hyperlink.
+* **Step 9:** From the filtered results, choose the **salesAnalysisReportDERole** hyperlink.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/94d27166-d00d-4e9e-a162-d4120fd17022)
 
-* **Step 9:** Choose the Trust relationships tab, and notice that lambda.amazonaws.com is listed as a trusted entity.
+* **Step 10:** Choose the Trust relationships tab, and notice that lambda.amazonaws.com is listed as a trusted entity.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ab34bd3f-c45d-485e-9f74-43b4906e2ad7)
 
-* **Step 10:** Choose the Permissions tab, and notice the permissions granted to this role:
+* **Step 11:** Choose the Permissions tab, and notice the permissions granted to this role:
 
    * **AWSLambdaBasicRunRole** provides write permissions to CloudWatch logs.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/4f9cdc18-b374-445d-bf13-f411fe8bf2af)
@@ -77,7 +77,7 @@ The salesAnalysisReportDataExtractor Lambda function that you create next uses t
 
 Start by downloading two required files.
 
-* **Step 11:** To download the lab files required by this task to my local machine, choose the following links:
+* **Step 12:** To download the lab files required by this task to my local machine, choose the following links:
 
    pymysql-v3.zip
 
@@ -89,17 +89,17 @@ Start by downloading two required files.
 
 I create a Lambda layer named pymysqlLibrary and upload the client library into it so that it can be used by any function that requires it. Lambda layers provide a flexible mechanism to reuse code between functions so that the code does not have to be included in each function’s deployment package.
 
-* **Step 11:** In the AWS Management Console, choose **Services > Compute > Lambda**.
+* **Step 13:** In the AWS Management Console, choose **Services > Compute > Lambda**.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/a83641a0-f197-4df1-926e-177cc7d07108)
 
 **Tip:** If the navigation panel is closed, choose the collapsed menu icon (three horizontal lines) to open the **AWS Lambda** panel.
 
-* **Step 11:** Choose **Layers**.
+* **Step 14:** Choose **Layers**.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/33c8de92-f264-4f09-a61a-86b502a09ea3)
 
-* **Step 11:** Choose **Create layer**.
+* **Step 15:** Choose **Create layer**.
 
-* **Step 11:** Configure the following layer settings:
+* **Step 16:** Configure the following layer settings:
 
    * For Name, enter pymysqlLibrary
 
@@ -110,7 +110,7 @@ I create a Lambda layer named pymysqlLibrary and upload the client library into 
    * For Compatible runtimes, choose Python 3.9.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f7083171-b4a5-40a2-9c52-784f1f59f629)
 
-* **Step 11:**     Choose Create.
+* **Step 17:**     Choose Create.
 
 The message "Successfully created layer pymysqlLibrary version 1" is displayed.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/e8a5eaf4-c577-4202-b4ea-4371c2cbbc2e)
@@ -121,9 +121,9 @@ b68d04611a52)
 
 ## Creating a data extractor Lambda function
 
-* **Step 11:** In the navigation pane, choose Functions to open the Functions dashboard page.
+* **Step 18:** In the navigation pane, choose Functions to open the Functions dashboard page.
 
- * **Step 11:** Choose Create function, and configure the following options:
+ * **Step 19:** Choose Create function, and configure the following options:
 
 At the top of the Create function page, select Author from scratch.
 
@@ -139,18 +139,18 @@ For Execution role, choose Use an existing role.
 For Existing role:, choose salesAnalysisReportDERole.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6aa8a19a-41ef-47e2-9198-ab0a5a57d246)
 
-* **Step 11:** Choose Create function.
+* **Step 20:** Choose Create function.
 
 * A new page opens with the following message: "Successfully created the function salesAnalysisReportDataExtractor."
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/219f6f51-03a8-4370-bfca-90de53f9cd88)
 
 ## Adding the Lambda layer to the function
 
-* **Step 11:** In the Function overview panel, choose Layers.
+* **Step 21:** In the Function overview panel, choose Layers.
 
-* **Step 11:** At the bottom of the page, in the Layers panel, choose Add a layer.
+* **Step 22:** At the bottom of the page, in the Layers panel, choose Add a layer.
 
-* **Step 11:**On the Add layer page, configure the following options:
+* **Step 23:** On the Add layer page, configure the following options:
 
 Choose a layer: Choose Custom layers.
 
@@ -159,7 +159,7 @@ Custom layers: Choose pymysqlLibrary.
 Version: Choose 1.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6e69e07a-f0f4-42e7-93fc-dba298db711e)
 
-* **Step 11:** Choose Add.
+* **Step 24:** Choose Add.
 
 The Function overview panel shows a count of (1) in the Layers node for the function.
 
@@ -168,29 +168,29 @@ The Function overview panel shows a count of (1) in the Layers node for the func
 
 ## Importing the code for the data extractor Lambda function
 
-* **Step 11:** Go to the Lambda > Functions > salesAnalysisReportDataExtractor page.
+* **Step 25:** Go to the Lambda > Functions > salesAnalysisReportDataExtractor page.
 
-* **Step 11:** In the Runtime settings panel, choose Edit.
+* **Step 26:** In the Runtime settings panel, choose Edit.
 
-* **Step 11:** For Handler, enter salesAnalysisReportDataExtractor.lambda_handler
+* **Step 27:** For Handler, enter salesAnalysisReportDataExtractor.lambda_handler
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/4c77e33f-2eb4-4cf3-a23e-316be2ac8725)
 
-* **Step 11:** Choose Save.
+* **Step 28:** Choose Save.
 
-* **Step 11:** In the Code source panel, choose Upload from.
+* **Step 29:** In the Code source panel, choose Upload from.
 
-* **Step 11:** Choose .zip file.
+* **Step 30:** Choose .zip file.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8c6dcfd8-0b4a-4629-8854-08d0edf1ca09)
 
-* **Step 11:** Choose Upload, and then navigate to and select the salesAnalysisReportDataExtractor-v3.zip file that you downloaded earlier.
+* **Step 31:** Choose Upload, and then navigate to and select the salesAnalysisReportDataExtractor-v3.zip file that you downloaded earlier.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8fcfe5d2-bf2d-4297-bf3a-fcbbbdcb0bc7)
 
-* **Step 11:** Choose Save.
+* **Step 32:** Choose Save.
 
 The Lambda function code is imported and displays in the Code source panel. If necessary, in the Environment navigation pane, double-click salesAnalysisReportDataExtractor.py to display the code.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/fc2d5c5d-7e9c-4cb3-950d-beb585d3c037)
 
-* **Step 11:** Review the Python code that implements the function.
+* **Step 33:** Review the Python code that implements the function.
 
 **Note:** If the code does not yet display in the function code editor, refresh the console so that it displays.
 
@@ -200,10 +200,10 @@ Read the comments included in the code to gain an understanding of its logic flo
 
 The final step before I can test the function is to configure its network settings. As the architecture diagram at the start of this lab shows, this function requires network access to the café database, which runs in an EC2 LAMP instance. Therefore, I need to specify the instance’s VPC, subnet, and security group information in the function’s configuration.
 
-* **Step 11:** Choose the Configuration tab, and then choose VPC.
+* **Step 34:** Choose the Configuration tab, and then choose VPC.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/818a484c-d30f-4b4d-9bba-9727ad2fc858)
 
-* **Step 11:** Choose Edit, and configure the following options:
+* **Step 35:** Choose Edit, and configure the following options:
 
     * VPC: Choose the option with Cafe VPC as the Name.
 
@@ -217,7 +217,7 @@ The final step before I can test the function is to configure its network settin
 Notice that the security group’s inbound and outbound rules are automatically displayed following the field.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/296bf039-a010-4616-9fe4-b74135a0854b)
 
-* **Step 11:** Choose Save.
+* **Step 36:** Choose Save.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/afaa8604-2f57-42a4-ae12-f4c5ac377a5e)
 
 # Testing the data extractor Lambda function
@@ -226,12 +226,12 @@ Notice that the security group’s inbound and outbound rules are automatically 
 
 You are now ready to test the salesAnalysisReportDataExtractor function. To invoke it, you need to supply values for the café database connection parameters. Recall that these are stored in Parameter Store.
 
-* **Step 11:** On a new browser tab, open the AWS Management Console, and choose Services > Management & Governance > Systems Manager.
+* **Step 37:** On a new browser tab, open the AWS Management Console, and choose Services > Management & Governance > Systems Manager.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5354f385-0cbf-4413-9830-c0ef53a5abfd)
 
-* **Step 11:** In the navigation pane, choose Parameter Store.
+* **Step 38:** In the navigation pane, choose Parameter Store.
 
-* **Step 11:** Choose each of the following parameter names, and copy and paste the Value of each one into a text editor document:
+* **Step 39:** Choose each of the following parameter names, and copy and paste the Value of each one into a text editor document:
 
     * /cafe/dbUrl  :ec2-34-221-112-173.us-west-2.compute.amazonaws.com
 
@@ -241,9 +241,9 @@ You are now ready to test the salesAnalysisReportDataExtractor function. To invo
 
    * /cafe/dbPassword : Re:Start!9
 
-* **Step 11:** Return to the Lambda Management Console browser tab. On the salesAnalysisReportDataExtractor function page, choose the Test tab.
+* **Step 40:** Return to the Lambda Management Console browser tab. On the salesAnalysisReportDataExtractor function page, choose the Test tab.
 
-* **Step 11:** Configure the Test event panel as follows:
+* **Step 41:** Configure the Test event panel as follows:
 
    * For Test event action, select Create new event.
 
@@ -262,10 +262,10 @@ You are now ready to test the salesAnalysisReportDataExtractor function. To invo
 
        * In this code, substitute the value of each parameter with the values that you pasted into a text editor in the previous steps. Enclose these values in quotation marks.
      
- * **Step 11:**  Choose Save.
+ * **Step 42:**  Choose Save.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/1ad061c3-94f7-453c-a432-e8911efa90a7)
 
-* **Step 11:** Choose Test.
+* **Step 43:** Choose Test.
 
 After a few moments, the page shows the message "Execution result: failed". 
 
