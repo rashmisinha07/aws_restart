@@ -237,7 +237,9 @@ When restoring a snapshot to a new volume, I can also modify the configuration, 
    The **Device name** field is set to **/dev/sdg**. You use this device identifier in a later task.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/e2587c38-5e20-405f-85f0-86ff83e7a2b1)
+
 * **Step 1:** Choose **Attach volume**.
+  
 The **Volume status** of your volume is now In-use.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/fd404f5b-6ac2-4014-b6aa-1bed978eb8a3)
@@ -248,7 +250,7 @@ The **Volume status** of your volume is now In-use.
 
 * **Step 1:** To create a directory for mounting the new storage volume, in the EC2 Instance Connect terminal, run the following command:
 
-     sudo mkdir /mnt/data-store2
+       sudo mkdir /mnt/data-store2
 
   To mount the new volume, run the following command:
 
