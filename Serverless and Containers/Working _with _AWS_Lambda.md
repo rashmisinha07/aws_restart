@@ -138,73 +138,81 @@ The message "Successfully created layer pymysqlLibrary version 1" is displayed.
 
 ## Creating a data extractor Lambda function
 
-* **Step 18:** In the navigation pane, choose Functions to open the Functions dashboard page.
+* **Step 18:** In the navigation pane, choose **Functions** to open the **Functions** dashboard page.
 
- * **Step 19:** Choose Create function, and configure the following options:
+ * **Step 19:** Choose **Create function**, and configure the following options:
 
-At the top of the Create function page, select Author from scratch.
+   * At the top of the **Create function** page, select **Author from scratch**.
 
-For Function name, enter salesAnalysisReportDataExtractor
+   * For **Function name**, enter `salesAnalysisReportDataExtractor`
 
-For Runtime, choose Python 3.9.
+   * For Runtime, choose Python 3.9.
+
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/9a9b62d9-4ba4-4f48-9edf-ae610caf7bf7)
 
-Expand Change default execution role, and configure the following options:    
+   * Expand **Change default execution role**, and configure the following options:    
 
-For Execution role, choose Use an existing role.
+     * For **Execution role**, choose **Use an existing role**.
 
-For Existing role:, choose salesAnalysisReportDERole.
+     * For **Existing role**:, choose **salesAnalysisReportDERole**.
+       
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6aa8a19a-41ef-47e2-9198-ab0a5a57d246)
 
-* **Step 20:** Choose Create function.
+* **Step 20:** Choose **Create function**.
 
-* A new page opens with the following message: "Successfully created the function salesAnalysisReportDataExtractor."
+    A new page opens with the following message: "Successfully created the function salesAnalysisReportDataExtractor."
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/219f6f51-03a8-4370-bfca-90de53f9cd88)
 
 ## Adding the Lambda layer to the function
 
-* **Step 21:** In the Function overview panel, choose Layers.
+* **Step 21:** In the **Function overview** panel, choose **Layers**.
 
-* **Step 22:** At the bottom of the page, in the Layers panel, choose Add a layer.
+* **Step 22:** At the bottom of the page, in the **Layers** panel, choose **Add a layer**.
 
-* **Step 23:** On the Add layer page, configure the following options:
+* **Step 23:** On the **Add layer** page, configure the following options:
 
-Choose a layer: Choose Custom layers.
+  * **Choose a layer**: Choose **Custom layers**.
 
-Custom layers: Choose pymysqlLibrary.
+  * **Custom layers**: Choose **pymysqlLibrary**.
 
-Version: Choose 1.
+  * **Version**: Choose **1**.
+    
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6e69e07a-f0f4-42e7-93fc-dba298db711e)
 
-* **Step 24:** Choose Add.
+* **Step 24:** Choose **Add**.
 
-The Function overview panel shows a count of (1) in the Layers node for the function.
+The **Function overview** panel shows a count of **(1)** in the **Layers** node for the function.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/176de07f-2cfb-4733-ae9d-3f1e3ef93083)
 
 
 ## Importing the code for the data extractor Lambda function
 
-* **Step 25:** Go to the Lambda > Functions > salesAnalysisReportDataExtractor page.
+* **Step 25:** Go to the **Lambda > Functions > salesAnalysisReportDataExtractor** page.
 
-* **Step 26:** In the Runtime settings panel, choose Edit.
+* **Step 26:** In the **Runtime settings** panel, choose **Edit**.
 
-* **Step 27:** For Handler, enter salesAnalysisReportDataExtractor.lambda_handler
+* **Step 27:** For **Handler**, enter `salesAnalysisReportDataExtractor.lambda_handler`
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/4c77e33f-2eb4-4cf3-a23e-316be2ac8725)
 
-* **Step 28:** Choose Save.
+* **Step 28:** Choose **Save**.
 
-* **Step 29:** In the Code source panel, choose Upload from.
+* **Step 29:** In the **Code source** panel, choose **Upload from**.
 
-* **Step 30:** Choose .zip file.
+* **Step 30:** Choose **.zip file**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8c6dcfd8-0b4a-4629-8854-08d0edf1ca09)
 
-* **Step 31:** Choose Upload, and then navigate to and select the salesAnalysisReportDataExtractor-v3.zip file that you downloaded earlier.
+* **Step 31:** Choose **Upload**, and then navigate to and select the **salesAnalysisReportDataExtractor-v3.zip** file that you downloaded earlier.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8fcfe5d2-bf2d-4297-bf3a-fcbbbdcb0bc7)
 
-* **Step 32:** Choose Save.
+* **Step 32:** Choose **Save**.
 
-The Lambda function code is imported and displays in the Code source panel. If necessary, in the Environment navigation pane, double-click salesAnalysisReportDataExtractor.py to display the code.
+The Lambda function code is imported and displays in the **Code source** panel. If necessary, in the **Environment** navigation pane, double-click **salesAnalysisReportDataExtractor.py** to display the code.
+
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/fc2d5c5d-7e9c-4cb3-950d-beb585d3c037)
 
 * **Step 33:** Review the Python code that implements the function.
