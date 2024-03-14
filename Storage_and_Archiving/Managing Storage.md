@@ -17,6 +17,7 @@ The "Command Host" instance will be used to administer AWS resources including t
 
 
 # Creating and configuring resources
+
 I create an Amazon S3 bucket and configure the "Command Host" EC2 instance to have secure access to other AWS resources.
 
 
@@ -24,80 +25,81 @@ I create an Amazon S3 bucket and configure the "Command Host" EC2 instance to ha
 
  I create an S3 bucket to sync files from an EBS volume.
 
- * **Step 1** On the **AWS Management Console**, in the **Search** bar, enter and choose `S3` to open the **S3 Management Console**.
+ * **Step 1:** On the **AWS Management Console**, in the **Search** bar, enter and choose `S3` to open the **S3 Management Console**.
 
-* **Step 2** On the console, choose **Create bucket**.
+* **Step 2:** On the console, choose **Create bucket**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/4ba68872-b651-4a06-a7bb-52ddc7cd031d)
 
-* **Step 3** In the **Create bucket** section, configure the following:
+* **Step 3:** In the **Create bucket** section, configure the following:
 
- * **Bucket name**: Enter a bucket name. Use a combination of characters and numbers to keep it unique. 
+  * **Bucket name**: Enter a bucket name. Use a combination of characters and numbers to keep it unique. 
 
  This will be referred to as "s3-bucket-name" throughout the lab.
 
- * **Region**: Leave as default.
+   * **Region**: Leave as default.
    
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5e8dc20a-d0b2-43cb-916c-5701e00047e1)
 
-* **Step 4** Scroll and choose **Create bucket**.
+* **Step 4:** Scroll and choose **Create bucket**.
 
 
-# Attach instance profile to Processor
+## Attach instance profile to Processor
 
 
 I attach a pre-created IAM role as an instance profile to the EC2 instance "Processor," giving it the permissions to interact with other AWS services such as EBS volumes and S3 buckets.
 
-* **Step 5** On the **AWS Management Console**, in the **Search** bar, enter and choose `EC2` to open the **EC2 Management Console**.
+* **Step 5:** On the **AWS Management Console**, in the **Search** bar, enter and choose `EC2` to open the **EC2 Management Console**.
 
-  **Step 6** In the navigation pane, choose **Instances**.
+* **Step 6:** In the navigation pane, choose **Instances**.
 
-* **Step 7** Choose **Processor** from the list of EC2 instances.
+* **Step 7:** Choose **Processor** from the list of EC2 instances.
 
-* **Step 8** Choose **Actions > Security > Modify IAM role**.
+* **Step 8:** Choose **Actions > Security > Modify IAM role**.
   
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/1000446b-7488-4a74-8fe8-dc0f7239282a)
 
-* **Step 9** Choose the `S3BucketAccess` role in the **IAM role** dropdown list.
+* **Step 9:** Choose the `S3BucketAccess` role in the **IAM role** dropdown list.
 
-* **Step 10** Choose **Update IAM role**.
+* **Step 10:** Choose **Update IAM role**.
   
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f49d7415-d859-4657-b06b-f4e3572d3008)
 
 
-## Taking snapshots of your instance
+# Taking snapshots of your instance
 
 I use the AWS Command Line Interface (AWS CLI) to manage the processing of snapshots of an instance.
 
 
-### Connecting to the Command Host EC2 instance
+## Connecting to the Command Host EC2 instance
 
 I use EC2 Instance Connect to connect to the "Command Host" EC2 instance. 
 
-* **Step 10** On the **AWS Management Console**, in the **Search** bar, enter and choose `EC2` to open the **EC2 Management Console**.
+* **Step 11:** On the **AWS Management Console**, in the **Search** bar, enter and choose `EC2` to open the **EC2 Management Console**.
 
-* **Step 11** In the navigation pane, choose **Instances**.
+* **Step 12:** In the navigation pane, choose **Instances**.
 
-* **Step 12** From the list of instances, choose **Command Host**.
+* **Step 13:** From the list of instances, choose **Command Host**.
   
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/b76c04ac-7dbb-4663-895e-da8871bdaf20)
 
-* **Step 13** Choose **Connect**.
+* **Step 14:** Choose **Connect**.
 
-On the EC2 Instance Connect tab, choose Connect.
+* **Step 15:** On the **EC2 Instance Connect** tab, choose **Connect**.
 
-This option opens a new browser tab with the EC2 Instance Connect terminal window.
+This option opens a new browser tab with the **EC2 Instance Connect** terminal window.
 
-Note: If you prefer to use an SSH client to connect to the EC2 instance, see the guidance provided in the additional references section.
+**Note:** If I prefer to use an SSH client to connect to the EC2 instance, see the guidance provided in the additional references section.
 
-You use this terminal window to complete the tasks throughout the lab. If the terminal becomes unresponsive, refresh the browser or use the steps in this task to connect again.
-
-
-### Taking an initial snapshot
-
-I identify the EBS volume that's attached to the "Processor" instance and take an initial snapshot. To do so, I run commands in the EC2 Instance Connect terminal window. You can copy the command output to a text editor for subsequent use.
+I use this terminal window to complete the tasks throughout the lab. If the terminal becomes unresponsive, refresh the browser or use the steps in this task to connect again.
 
 
-To display the EBS volume-id, run the following command: 
+## Taking an initial snapshot
+
+I identify the EBS volume that's attached to the "Processor" instance and take an initial snapshot. To do so, I run commands in the EC2 Instance Connect terminal window. I can copy the command output to a text editor for subsequent use.
+
+
+* **Step 16:** To display the EBS volume-id, run the following command: 
 
 
        aws ec2 describe-instances --filter 'Name=tag:Name,Values=Processor' --query 
@@ -108,129 +110,188 @@ To display the EBS volume-id, run the following command:
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8124443e-cff1-4a0a-b80f-6e7baefe1298)
 
 
-Note: The command returns a response similar to this: "VolumeId": "vol-1234abcd". 
+**Note:** The command returns a response : "VolumeId": **"vol-0772600274d66bec8"**. 
 
-		You use this value for VolumeId throughout the lab steps when prompted.
-
-
-
-21.  Next, you take snapshot of this volume. Prior to this, you shut down the "Processor" instance, which requires its instance ID.  Run the following command to obtain the instance ID:
-
-    aws ec2 describe-instances --filters 'Name=tag:Name,Values=Processor' --query 
-     'Reservations[0].Instances[0].InstanceId'
+I use this value for VolumeId throughout the lab steps when prompted.
 
 
-     The command returns a value for INSTANCE-ID similar to this: "i-0b06965263c7ac08f"
 
+* **Step 17:**  I take snapshot of this volume. Prior to this, I shut down the "Processor" instance, which requires its instance ID.  Run the following command to obtain the instance ID:
+
+       aws ec2 describe-instances --filters 'Name=tag:Name,Values=Processor' -- 
+       query  'Reservations[0].Instances[0].InstanceId'
 
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5810690c-cd3e-49ed-96b4-d190af9cc228)
 
+ The command returns a value for INSTANCE-ID : **"i-0179ed69870b42fc1"**
 
-22. To shut down the "Processor" instance, run the following command and replace "INSTANCE-ID" with the instance-id that you retrieved earlier:
+* **Step 18:** To shut down the "Processor" instance, run the following command and replace "INSTANCE-ID" with the instance-id that I retrieved earlier:
 
-    aws ec2 stop-instances --instance-ids INSTANCE-ID
+       aws ec2 stop-instances --instance-ids INSTANCE-ID
+
+INSTANCE-ID : **"i-0179ed69870b42fc1"**
+
+      aws ec2 stop-instances --instance-ids i-0179ed69870b42fc1
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/416e899e-7e5d-491e-9cad-0f2654e53821)
 
 
-    ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/416e899e-7e5d-491e-9cad-0f2654e53821)
+
+* **Step 19:**  To verify that the "Processor" instance stopped, run the following command and replace "INSTANCE-ID" with your instance id.
 
 
+       aws ec2 wait instance-stopped --instance-id INSTANCE-ID
 
-    To verify that the "Processor" instance stopped, run the following command and replace "INSTANCE-ID" with your instance id.
-
-
-    aws ec2 wait instance-stopped --instance-id INSTANCE-ID
-
+INSTANCE-ID : **"i-0179ed69870b42fc1"**
 
     aws ec2 wait instance-stopped --instance-id i-0179ed69870b42fc1
 
-    When the instance stops, the command returns to a prompt.
+When the instance stops, the command returns to a prompt.
 
-24.    To create your first snapshot of the volume of your "Processor" instance, run the following command and replace "VOLUME-ID" with the VolumeId that you retrieved earlier:
+* **Step 20:** To create my first snapshot of the volume of your "Processor" instance, run the following command and replace "VOLUME-ID" with the VolumeId that you retrieved earlier:
 
        aws ec2 create-snapshot --volume-id VOLUME-ID
+  
+"VolumeId": **"vol-0772600274d66bec8"**
 
-aws ec2 create-snapshot --volume-id vol-0772600274d66bec8
+      aws ec2 create-snapshot --volume-id vol-0772600274d66bec8
 
-   ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0619fc30-e6b8-40f1-ad8e-3a686ebbf510)
-
-
-
-25.   To check the status of your snapshot, run the following command and replace "SNAPSHOT-ID" with the SnapshotId that you retrieved earlier:
-
-    aws ec2 wait snapshot-completed --snapshot-id SNAPSHOT-ID
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0619fc30-e6b8-40f1-ad8e-3a686ebbf510)
 
 
-26. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5eec8002-5f39-42f8-b806-70ef3406eed2)
+
+* **Step 21:** To check the status of my snapshot, run the following command and replace "SNAPSHOT-ID" with the SnapshotId that I retrieved earlier:
+
+       aws ec2 wait snapshot-completed --snapshot-id SNAPSHOT-ID
+  
+snapshot-id:**snap-0ff15a37ee2295280**
+
+        aws ec2 wait snapshot-completed --snapshot-id snap-0ff15a37ee2295280
+  
+* **Step 22:** To restart the "Processor" instance, run the following command and replace "INSTANCE-ID" with the instance-id that I retrieved earlier:
+
+       aws ec2 start-instances --instance-ids INSTANCE-ID
+  
+INSTANCE-ID : **"i-0179ed69870b42fc1"**
+
+       aws ec2 start-instances --instance-ids i-0179ed69870b42fc1
+      
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5eec8002-5f39-42f8-b806-70ef3406eed2)
 
 
 
 ## Scheduling the creation of subsequent snapshots
 
 
-Using the Linux scheduling system (cron), you can set up a recurring snapshot process so that new snapshots of your data are taken automatically.
+Using the Linux scheduling system (cron), I can set up a recurring snapshot process so that new snapshots of my data are taken automatically.
 
-For the purposes of this lab, you schedule a snapshot creation every minute so that you can verify the results of your work.
+For the purposes of this lab, I schedule a snapshot creation every minute so that I can verify the results of my work.
 
-In this task, you create a cron job to manage the number of snapshots that are maintained for a volume.
+In this task, I create a cron job to manage the number of snapshots that are maintained for a volume.
 
-Note: This section of the lab doesn't stop the instance in order to create a large number of snapshots for the next step.
-
-
-27. To create and schedule a cron entry that runs a job every minute, run the following command and replace "VOLUME-ID" with the VolumeId that you retrieved earlier:
+**Note:** This section of the lab doesn't stop the instance in order to create a large number of snapshots for the next step.
 
 
+* **Step 23:** To create and schedule a cron entry that runs a job every minute, run the following command and replace "VOLUME-ID" with the VolumeId that you retrieved earlier:
+  
+      echo "* * * * *  aws ec2 create-snapshot --volume-id VOLUME-ID 2>&1 >> 
+      /tmp/cronlog" > cronjob
+      crontab cronjob
 
-28.![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/64491388-55e0-44bd-88e2-dbc1dc9ab46a)
+ "VolumeId": **"vol-0772600274d66bec8"**
 
 
+       echo "* * * * *  aws ec2 create-snapshot --volume-id vol-0772600274d66bec8 
+      2>&1 >> /tmp/cronlog" > cronjob
+       crontab cronjob
+
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/64491388-55e0-44bd-88e2-dbc1dc9ab46a)
+
+* **Step 24:** To verify that subsequent snapshots are being created, run the following command and replace "VOLUME-ID" with the VolumeId that you retrieved earlier:
+
+       aws ec2 describe-snapshots --filters "Name=volume-id,Values=VOLUME-ID"
+
+  "VolumeId": **"vol-0772600274d66bec8"**
+  
+         aws ec2 describe-snapshots --filters "Name=volume-id,Values=vol-0772600274d66bec8"
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/bdcb3d0c-32e8-4a71-bcec-995e7916cbaf)
 
+Re-run the command after few minutes to see more snapshots.
+
+Wait a few minutes so that a few more snapshots are generated before beginning the next task.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/d8118301-0255-4f72-be5a-ea5b96ab8c34)
 
 
 ### Retaining the last two snapshots
+I run a Python script that maintains only the last two snapshots for any given EBS volume.
+* **Step 25:** To stop the cron job, run the following command:
 
+         crontab -r
+
+* **Step 26:** To examine the contents of the Python script "snapshotter_v2.py", run the following command:
+
+          more /home/ec2-user/snapshotter_v2.py
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c3803207-a185-4c54-bd39-38a1f95bf143)
 
+* **Step 27:** Before running snapshotter_v2.py, run the following command and replace "VOLUME-ID" with the VolumeId that you retrieved earlier:
+  
+       aws ec2 describe-snapshots --filters "Name=volume-id, Values=VOLUME-ID" -- 
+       query 'Snapshots[*].SnapshotId'
+  
+"VolumeId": **"vol-0772600274d66bec8"**
 
-aws ec2 describe-snapshots --filters "Name=volume-id, Values=VOLUME-ID" --query 'Snapshots[*].SnapshotId'
+        aws ec2 describe-snapshots --filters "Name=volume-id, Values=vol- 
+         0772600274d66bec8" --query 'Snapshots[*].SnapshotId'
+
+The command returns the multiple snapshot IDs that were returned for the volume. These are the snapshots that were created by your cron job before you stopped it.
+
+* **Step 28:** Run the the "snapshotter_v2.py" script using following command:
 
 
+       python3 snapshotter_v2.py
+  
+![ image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8356dd57-badb-499b-a367-3e2b8c8f8071)
 
-33. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/8356dd57-badb-499b-a367-3e2b8c8f8071)
+* **Step 29:** To examine the new number of snapshots for the current volume, re-run the following command from an earlier step:
 
-34. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/61ff7e08-fcd3-4d8c-9b76-2801810ffb00)
+
+       aws ec2 describe-snapshots --filters "Name=volume-id, Values=VOLUME-ID" -- 
+       query 'Snapshots[*].SnapshotId'
+
+ ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/61ff7e08-fcd3-4d8c-9b76-2801810ffb00)
 
 
 ### Challenge: Synchronize files with Amazon S3
 
-
+* **Step 14**
 36.![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0ea2e6fe-7db2-4f37-b9bc-03ed70eeec94)
 
-
+* **Step 14**
 37. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/434d3e9c-b130-4402-8122-5aec100dd603)
 
-
+* **Step 14**
 39. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3f19a64f-647a-4c47-afc9-de1bbce9bc67)
-
+* **Step 14**
 40. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/c072fc84-5d63-4b56-8f2d-d4a50c59c7b1)
-
+* **Step 14**
 42. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/cc2d36fa-81a8-4aec-9e00-977cf73febb5)
-
+* **Step 14**
 44. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/b98a8a7f-47dd-4b3e-b6b2-7a411b8f8360)
 
 
-
+* **Step 14**
 45.![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0791cd62-e52b-4960-83f1-868197e433ce)
-
+* **Step 14**
 46.![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/143365ca-e16f-4419-8175-d1d90dfa3668)
 
-
+* **Step 14**
 47.![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f2f0193f-f3b0-442f-b535-854aeb50eff4)
 
-
+* **Step 14**
 48. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/6d75bfa4-a321-4d5c-9c0e-aee889c4658a)
 
 
