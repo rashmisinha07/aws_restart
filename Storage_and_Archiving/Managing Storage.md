@@ -29,35 +29,38 @@ I create an Amazon S3 bucket and configure the "Command Host" EC2 instance to ha
 * **Step 2** On the console, choose **Create bucket**.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/4ba68872-b651-4a06-a7bb-52ddc7cd031d)
 
-In the Create bucket section, configure the following:
+* **Step 3** In the **Create bucket** section, configure the following:
 
-Bucket name: Enter a bucket name. Use a combination of characters and numbers to keep it unique. 
+ * **Bucket name**: Enter a bucket name. Use a combination of characters and numbers to keep it unique. 
 
-This will be referred to as "s3-bucket-name" throughout the lab.
+ This will be referred to as "s3-bucket-name" throughout the lab.
 
-Region: Leave as default.
+ * **Region**: Leave as default.
+   
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5e8dc20a-d0b2-43cb-916c-5701e00047e1)
 
-Scroll and choose Create bucket.
+* **Step 4** Scroll and choose **Create bucket**.
 
 
 # Attach instance profile to Processor
 
 
-In this task, you attach a pre-created IAM role as an instance profile to the EC2 instance "Processor," giving it the permissions to interact with other AWS services such as EBS volumes and S3 buckets.
+I attach a pre-created IAM role as an instance profile to the EC2 instance "Processor," giving it the permissions to interact with other AWS services such as EBS volumes and S3 buckets.
 
-On the AWS Management Console, in the Search bar, enter and choose EC2 to open the EC2 Management Console.
+* **Step 5** On the **AWS Management Console**, in the **Search** bar, enter and choose `EC2` to open the **EC2 Management Console**.
 
-In the navigation pane, choose Instances.
+  **Step 6** In the navigation pane, choose **Instances**.
 
-Choose Processor from the list of EC2 instances.
+* **Step 7** Choose **Processor** from the list of EC2 instances.
 
-Choose Actions > Security > Modify IAM role.
+* **Step 8** Choose **Actions > Security > Modify IAM role**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/1000446b-7488-4a74-8fe8-dc0f7239282a)
 
-Choose the S3BucketAccess role in the IAM role dropdown list.
+* **Step 9** Choose the `S3BucketAccess` role in the **IAM role** dropdown list.
 
-Choose Update IAM role.
+* **Step 10** Choose **Update IAM role**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/f49d7415-d859-4657-b06b-f4e3572d3008)
 
 
@@ -69,14 +72,16 @@ I use the AWS Command Line Interface (AWS CLI) to manage the processing of snaps
 ### Connecting to the Command Host EC2 instance
 
 I use EC2 Instance Connect to connect to the "Command Host" EC2 instance. 
-On the AWS Management Console, in the Search bar, enter and choose EC2 to open the EC2 Management Console.
 
-In the navigation pane, choose Instances.
+* **Step 10** On the **AWS Management Console**, in the **Search** bar, enter and choose `EC2` to open the **EC2 Management Console**.
 
-From the list of instances, choose Command Host.
+* **Step 11** In the navigation pane, choose **Instances**.
+
+* **Step 12** From the list of instances, choose **Command Host**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/b76c04ac-7dbb-4663-895e-da8871bdaf20)
 
-Choose Connect.
+* **Step 13** Choose **Connect**.
 
 On the EC2 Instance Connect tab, choose Connect.
 
