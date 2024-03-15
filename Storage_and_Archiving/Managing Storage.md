@@ -266,13 +266,91 @@ The command returns the multiple snapshot IDs that were returned for the volume.
 
 
 ### Challenge: Synchronize files with Amazon S3
+I challenged to sync the contents of a directory with the Amazon S3 bucket that I created earlier.
 
-* **Step 14**
-36.![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0ea2e6fe-7db2-4f37-b9bc-03ed70eeec94)
+## Challenge Description
 
-* **Step 14**
-37. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/434d3e9c-b130-4402-8122-5aec100dd603)
+Run the following command in the terminal to download a sample set of files:
 
+      wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-RSJAWS-
+      1-23732/183-lab-JAWS-managing-storage/s3/files.zip
+      
+Unzip these files, and then, using the AWS CLI, figure out how to accomplish the following:
+
+  * Activate versioning for your Amazon S3 bucket.
+
+  * Use a single AWS CLI command to sync the contents of your unzipped folder with 
+   your Amazon S3 bucket.
+
+  * Modify the command so that it deletes a file from Amazon S3 when the 
+    corresponding file is deleted locally on your instance.
+
+  * Recover the deleted file from Amazon S3 using versioning.
+
+I can use the solution summary as a guide to complete the challenge myself. Use the links in additional references section for details on using required AWS CLI commands.
+
+### Solution Summary
+The solution involves the following steps:
+* To activate versioning for the bucket, use the aws s3api put-bucket-versioning command.
+
+* To synchronize the local files with Amazon S3, use the aws s3 sync command on the local folder.
+
+* Delete a local file.
+
+* To force Amazon S3 to delete any files that aren't present on the local drive but present in Amazon S3, use the --delete option with the aws s3 sync command.	
+
+* Because there's no direct command in Amazon S3 to restore a previous version of a file, to download a previous version of the deleted file from Amazon S3, use the aws s3api list-object-versions and aws s3api get-object commands. You can then restore the file to Amazon S3 by using  aws s3 sync.
+
+  ## Downloading and unzipping sample files
+
+  The sample file package contains a folder with three text files: file1.txt, file2.txt, and file3.txt. These are the files that I will sync with my Amazon S3 bucket.
+
+
+ * **Step 30:** Connect to the "Processor" instance using EC2 Instance Connect.
+
+**Note**: Refer to the earlier steps that I used to connect to the "Command Host" instance.
+
+I run following AWS CLI commands in the EC2 Instance Connect terminal window.
+
+* **Step 31:** To download the sample files on the "Processor" instance, run the following command from within your instance:
+
+      wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-RSJAWS-
+      1-23732/183-lab-JAWS-managing-storage/s3/files.zip    
+    
+
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/0ea2e6fe-7db2-4f37-b9bc-03ed70eeec94)
+
+* **Step 32:** To unzip the directory, use the following command:
+             unzip files.zip
+  
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/434d3e9c-b130-4402-8122-5aec100dd603)
+
+## Syncing files
+
+* **Step 33:** Before syncing content with my Amazon S3 bucket, I need to activate versioning on your bucket. 
+
+Run the following command and replace "S3-BUCKET-NAME" with my bucket name:
+
+    aws s3api put-bucket-versioning --bucket S3-BUCKET-NAME --versioning- 
+    configuration Status=Enabled
+    
+S3-BUCKET-NAME: **s3-bucket-name-07**
+
+     aws s3api put-bucket-versioning --bucket s3-bucket-name-07 --versioning- 
+     configuration Status=Enabled
+
+* **Step 34:** To sync the contents of the files folder with my Amazon S3 bucket, run the following command and replace "S3-BUCKET-NAME" with my bucket name:
+
+        aws s3 sync files s3://S3-BUCKET-NAME/files/
+    
+S3-BUCKET-NAME: **s3-bucket-name-07**
+
+         aws s3 sync files s3://s3-bucket-name-07/files/
+         
+The command confirms that three files were uploaded to my S3 bucket.
+
+To confirm the state of my files, run the following command and replace "S3-BUCKET-NAME" with my bucket name:
+         
 * **Step 14**
 39. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3f19a64f-647a-4c47-afc9-de1bbce9bc67)
 * **Step 14**
