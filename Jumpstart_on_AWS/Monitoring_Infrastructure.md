@@ -181,31 +181,32 @@ The CloudWatch agent is now running on the instance and sending log and metric d
 
 ## Task 2: Monitoring application logs using CloudWatch Logs
 
-You can use CloudWatch Logs to monitor applications and systems using log data. For example, CloudWatch Logs can track the number of errors that occur in your application logs and send you a notification whenever the rate of errors exceeds a threshold that you specify.
+I can use CloudWatch Logs to monitor applications and systems using log data. For example, CloudWatch Logs can track the number of errors that occur in your application logs and send  a notification whenever the rate of errors exceeds a threshold that I specify.
 
-CloudWatch Logs uses your existing log data for monitoring, so no code changes are required. For example, you can monitor application logs for specific literal terms (such as "NullReferenceException") or count the number of occurrences of a literal term at a particular position in log data (such as 404 status codes in a web server access log). When the term you are searching for is found, CloudWatch Logs reports the data to a CloudWatch metric that you specify. Log data is encrypted while in transit and while it is at rest.
+CloudWatch Logs uses my existing log data for monitoring, so no code changes are required. For example, I can monitor application logs for specific literal terms (such as "NullReferenceException") or count the number of occurrences of a literal term at a particular position in log data (such as 404 status codes in a web server access log). When the term I am searching for is found, CloudWatch Logs reports the data to a CloudWatch metric that I specify. Log data is encrypted while in transit and while it is at rest.
 
-In this task, you generate log data on the Web Server and then monitor the logs using CloudWatch Logs.
+In this task, I generate log data on the Web Server and then monitor the logs using CloudWatch Logs.
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/501668ef-9c4d-4f12-9f71-39aac6045aed)
 
 The Web Server generates two types of log data:
 
-Access logs
+ * Access logs
 
-Error logs
+ * Error logs
 
-You begin by accessing the web server.
+I begin by accessing the web server.
 
-Choose the Details dropdown menu above these instructions, and then choose Show
+* **Step 25:** Choose the **Details** dropdown menu above these instructions, and then choose **Show**
 
-Copy the WebServerIP value.
+Copy the **WebServerIP** value.
 
 
-WebServerIP	54.184.123.131
-Open a new web browser tab, paste the WebServerIP you copied, and then press Enter.
+**WebServerIP	54.184.123.131**
 
-You should see a web server Test Page.
+* **Step 26:** Open a new web browser tab, paste the WebServerIP I copied, and then press Enter.
+
+I should see a web server Test Page.
 You now generate log data by attempting to access a page that does not exist.
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/79c77049-461d-4434-bed1-750f6a670480)
 
