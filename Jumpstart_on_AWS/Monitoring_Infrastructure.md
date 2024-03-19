@@ -9,28 +9,31 @@ This lab shows  how to use Amazon CloudWatch Metrics, Amazon CloudWatch Logs, Am
 
 After completing this lab, I will be able to:
 
-Use the AWS Systems Manager Run Command to install the CloudWatch agent on Amazon Elastic Compute Cloud (Amazon EC2) instances
+  * Use the AWS Systems Manager Run Command to install the CloudWatch agent on 
+     Amazon Elastic Compute Cloud (Amazon EC2) instances
 
-Monitor application logs using CloudWatch agent and CloudWatch Logs
+  * Monitor application logs using CloudWatch agent and CloudWatch Logs
 
-Monitor system metrics using CloudWatch agent and CloudWatch Metrics
+  * Monitor system metrics using CloudWatch agent and CloudWatch Metrics
 
-Create real time notifications using CloudWatch Events
+  * Create real time notifications using CloudWatch Events
 
-Track infrastructure compliance using AWS Config
+  * Track infrastructure compliance using AWS Config
 
 
 ## Task 1: Installing the CloudWatch agent
 
 I can use the CloudWatch agent to collect metrics from EC2 instances and on-premises servers, including the following:
 
-System-level metrics from EC2 instances, such as CPU allocation, free disk space, and memory utilization. These metrics are collected from the machine itself and complement the standard CloudWatch metrics that CloudWatch collects.
+ * **System-level metrics from EC2 instances**, such as CPU allocation, free disk 
+    space, and memory utilization. These metrics are collected from the machine 
+   itself and complement the standard CloudWatch metrics that CloudWatch collects.
 
-System-level metrics from on-premises servers that enable the monitoring of hybrid environments and servers not managed by AWS.
+* **System-level metrics from on-premises servers** that enable the monitoring of hybrid environments and servers not managed by AWS.
 
-System and application logs from both Linux and Windows servers.
+* **System and application logs** from both Linux and Windows servers.
 
-Custom metrics from applications and services using the StatsD and collectd protocols.
+* **Custom metrics** from applications and services using the StatsD and collectd protocols.
 
 In this task, I use Systems Manager to install the CloudWatch agent on an EC2 instance. I configure it to collect both application and system metrics.
 
@@ -40,6 +43,7 @@ In this task, I use Systems Manager to install the CloudWatch agent on an EC2 in
 * **Step 1:** In the **AWS Management Console**, on the **Services**  menu, select **Systems Manager**.
 
 * **Step 2:** In the left navigation pane, choose **Run Command**.
+  
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/ceae4b5e-0090-4378-816b-71918ce8967f)
 
  
@@ -49,55 +53,101 @@ In this task, I use Systems Manager to install the CloudWatch agent on an EC2 in
 
 * **Step 5:** Scroll to the **Command parameters** section and configure the following information:
 
-    * Action: Select **Install**.
+    * **Action:** Select **Install**.
 
-    * Name: Enter AmazonCloudWatchAgent
+    * **Name:** Enter `AmazonCloudWatchAgent`
 
-    * Version: Enter latest
+    * **Version:** Enter `latest`
+      
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/43fad407-ac1d-44a6-a3ef-d54e674e5f3c)
 
 * **Step 6:** In the **Targets** section, select **Choose instances manually**, and then under **Instances**, select the check box next to **Web Server**.
 
 This configuration installs the CloudWatch agent on the web server.
+
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/3a8b6c2c-75d4-4ae1-bb77-88690910cf00)
 
 * **Step 7:** At the bottom of the page, choose **Run**
 
-* **Step 8:**  Wait for the **Overall status** to change to Success. You can occasionally choose  refresh toward the top of the page to update the status.
+* **Step 8:**  Wait for the **Overall status** to change to **Success**. I can occasionally choose  refresh toward the top of the page to update the status.
 
-You can view the output from the job to confirm that it ran successfully.
+I can view the output from the job to confirm that it ran successfully.
 
 
-* **Step 9:** Under Targets and outputs, choose  next to the instance, and then click View output.
+* **Step 9:** Under **Targets and outputs**, choose  next to the instance, and then click **View output**.
 
 * ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/cb09b8ef-1d71-4b87-b6d7-3952a71f66d4)
   
-* **Step 10:** Expand  Step 1 - Output.
+* **Step 10:** Expand  **Step 1 - Output**.
 
- You should see the message Successfully installed arn:aws:ssm:::package/AmazonCloudWatchAgent.
+ I should see the message **Successfully installed arn:aws:ssm:::package/AmazonCloudWatchAgent**.
 
- If you see the message Step execution skipped due to unsatisfied preconditions: '"StringEquals": [platformType, Windows]'. Step name: createDownloadFolder, then expand  Step 2 - Output instead. You can select this option because the instance you are using was created from a Linux AMI. You can safely ignore this message.
+ If I see the message **Step execution skipped due to unsatisfied preconditions: '"StringEquals": [platformType, Windows]'. Step name: createDownloadFolder**, then expand  **Step 2 - Output** instead. I can select this option because the instance I am using was created from a Linux AMI. I can safely ignore this message.
 
- You now configure the CloudWatch agent to collect the desired log information. The instance has a web server installed, so you configure the CloudWatch agent to collect the web server logs and general system metrics.
+ I configure the CloudWatch agent to collect the desired log information. The instance has a web server installed, so I configure the CloudWatch agent to collect the web server logs and general system metrics.
 
- You will store the configuration file in AWS Systems Manager Parameter Store, which the CloudWatch agent can then retrieve.
+ I will store the configuration file in AWS Systems Manager Parameter Store, which the CloudWatch agent can then retrieve.
+ 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/7f6b1cba-25e9-4828-9021-c26a33330201)
 
 
-* **Step 11:** In the left navigation pane, choose Parameter Store.
+* **Step 11:** In the left navigation pane, choose **Parameter Store**.
 
-* **Step 12:** Choose Create parameter, and then configure the following information:
+* **Step 12:** Choose **Create parameter**, and then configure the following information:
 
-Name: Enter Monitor-Web-Server
+   * **Name:** Enter `Monitor-Web-Server`
 
-Description: Enter Collect web logs and system metrics
+   * **Description:** Enter `Collect web logs and system metrics`
 
-Value: Copy and paste the following configuration:
+   * **Value:** Copy and paste the following configuration:
+
+     ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/533fbb1d-595c-4fc9-9013-95de59c25703)
+
+     ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/2017076b-cabf-41b1-9ec3-0ab2a03d1869)
+
+Examine the above configuration. It defines the following items to be monitored:
+
+   * **Logs:** Two web server log files to be collected and sent to CloudWatch Logs
+
+   * **Metrics:** CPU, disk, and memory metrics to sent to CloudWatch Metrics
+
+* **Step 13:** Choose **Create parameter**
+
+This parameter will be referenced when starting the CloudWatch agent.
+
+I use another Run Command to start the CloudWatch agent on the web server.
+
+* **Step 14:** In the left navigation pane, choose **Run Command**.
+
+* **Step 15:** Choose **Run command**
 
 ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/5fd67818-f640-4d4e-8384-f5c70a5e09c4)
 
+* **Step 16:** Choose the  box, and then select the following:
 
-20. ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/524bf75a-4230-45f0-bccf-62e62bb9c70c)
+* Select **Document name prefix**.
+
+* Select **Equals**.
+
+* Enter `AmazonCloudWatch-ManageAgent`
+
+* Verify that the filter is **Document name prefix : Equals : AmazonCloudWatch-ManageAgent**
+
+* Press Enter.
+
+ Before running the command, I can view the definition of the command.
+
+ ![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/524bf75a-4230-45f0-bccf-62e62bb9c70c)
+
+* **Step 17:** Choose **AmazonCloudWatch-ManageAgent** (choose the name itself).
+
+A new web browser tab opens that shows the definition of the command.
+
+Browse through the content of each tab to see how a command document is defined.
+
+* **Step 18:** Choose the Content tab, and scroll to the bottom to see the actual script that will run on the target instance.
+
+The script references the AWS Systems Manager Parameter Store because it retrieves the CloudWatch agent configuration that you defined earlier.
 
 24![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/95d8a09b-0611-4b8d-b3bf-30abfa31ad7e)
 
