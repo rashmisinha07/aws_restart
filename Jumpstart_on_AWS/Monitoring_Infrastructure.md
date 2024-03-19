@@ -125,15 +125,15 @@ I use another Run Command to start the CloudWatch agent on the web server.
 
 * **Step 16:** Choose the  box, and then select the following:
 
-* Select **Document name prefix**.
+  * Select **Document name prefix**.
 
-* Select **Equals**.
+  * Select **Equals**.
 
-* Enter `AmazonCloudWatch-ManageAgent`
+  * Enter `AmazonCloudWatch-ManageAgent`
 
-* Verify that the filter is **Document name prefix : Equals : AmazonCloudWatch-ManageAgent**
+  * Verify that the filter is **Document name prefix : Equals : AmazonCloudWatch-ManageAgent**
 
-* Press Enter.
+  * Press Enter.
 
  Before running the command, I can view the definition of the command.
 
@@ -149,9 +149,34 @@ Browse through the content of each tab to see how a command document is defined.
 
 The script references the AWS Systems Manager Parameter Store because it retrieves the CloudWatch agent configuration that you defined earlier.
 
-24![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/95d8a09b-0611-4b8d-b3bf-30abfa31ad7e)
+* **Step 19:** Close the current web browser tab, which should return I to the Run a command tab that I was using earlier.
 
-28![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/93b0f3d6-1bee-46e6-a1fd-004e0ec2fbae)
+Verify that I have selected the button  next to **AmazonCloudWatch-ManageAgent**.
+
+* **Step 20:** In the **Command parameters** section, configure the following information:
+
+  * **Action:** Select configure.
+
+  * **Mode:** Select ec2.
+
+  * **Optional Configuration Source:** Select ssm.
+
+  * **Optional Configuration Location:** Enter `Monitor-Web-Server`
+
+  * **Optional Restart:** Select **yes**.
+
+This configures the agent to use the configuration I previously stored in the Parameter Store.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/95d8a09b-0611-4b8d-b3bf-30abfa31ad7e)
+
+* **Step 21:** In the Targets section, select **Choose instances manually**.
+
+* **Step 22:** In the **Instances** section, select the check box next to **Web Server**.
+
+* **Step 23:** Choose **Run**
+* **Step 24:**  Wait for the **Overall status** to change to **Success**. I can occasionally choose  refresh toward the top of the page to update the status.
+
+The CloudWatch agent is now running on the instance and sending log and metric data to CloudWatch.
+![image](https://github.com/rashmisinha07/aws_restart/assets/62481476/93b0f3d6-1bee-46e6-a1fd-004e0ec2fbae)
 
 
 ## Task 2: Monitoring application logs using CloudWatch Logs
